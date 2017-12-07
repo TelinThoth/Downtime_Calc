@@ -1,0 +1,12 @@
+The following is the list of goals that are expected for the Downtime Calculator:
+1: Allow Multi-Account tracking of gold for campaigns
+2: Track the History of the Accounts within the Campaign
+3: Single button "Accrue Interest" for In game Month end
+4: Automatically roll the d100 and apply the results Per account
+5: Allow Interest to go to any account within the campaign--theirs or others
+----------------------------------------------------------------------------------
+The following are extended goals:
+1: Allow for Multiple types of investments (Art, etc)
+2: Single File Save Format
+3: Meta-Display of all accounts on a single page.
+4: Meta-Display of all investments for a single account
