@@ -2,6 +2,7 @@ Outline for the Save Data
 ---------------------------
 |XXXXXXXXXXX.Cpgn   (ZIP) |
 ---------------------------
+  |-Config.csv
   |-CamMeta.csv
   |-Account1 Folder
   |  |-Art.csv
