@@ -1,0 +1,5 @@
+Config Options:
+Accrue Interest on Year or Month (T/F)(T=Year)
+Type of Account Interests (Modifiable)
+Roll Mins and Maxs for Break out and loss (Format: 11-99 becomes 1-10 for no, 11-99 normal, 100 Breakout)
+# and Die type Modifiers XdY+1
