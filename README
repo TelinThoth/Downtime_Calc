@@ -1,6 +1,10 @@
-*******************************************************************
-*Table of Contents                                                *
-*******************************************************************
+README.TXT
+Verson 0.2.1
+Last Edit Date: 12/11/17
+***********************************************************************************************************
+*Table of Contents                                                                                        *
+***********************************************************************************************************
+
 Section 1: Save Data
         1.1: Save Data Outline
         1.2: The CPGN File
@@ -9,6 +13,8 @@ Section 1: Save Data
           1.4.1: Log File Layout
           1.4.2: Header for Log File
           1.4.3: Format for Roll Lines
+          1.4.4: Open/Access Line Format
+          
 Section 2: Accounts
         2.1: Account Types and Returns
         2.2: Return Calculations
@@ -16,9 +22,13 @@ Section 2: Accounts
 Section XX: Updates
           X.0 Update 0.1
           X.1 Update 0.2
-===================================================================
+           X.1.1 Update 0.2.1
+===========================================================================================================
 
+
+===========================================================================================================
 Section 1
+===========================================================================================================
 
 Section 1.1 Outline for the Save Data
 ---------------------------
@@ -51,30 +61,42 @@ Log Files
 Section 1.4.1
 Log File Layout
 
+The Log is used for Display of the accounts to Humans, not the program. That said the intent isn't to provide a source of backup 
+for the data. That being said, none of the data here will be use for recovery.
+
 These CSVs store the In-game date and store all the changes to the accounts with a short description as to the nature of the changes.
 [Date][Type][Character][acct][acct][acct][acct]...[acct21]
 [Date] is the ingame date for the transaction accuring, the number after the date '.X' is the Update Number for that day.
-[Type]: type of Transaction: Transfer, Withdrawl, deposit, Interest/Returns, open, close, update, roll
+[Type]: type of Transaction: Transfer, Withdrawl, deposit, Interest/Returns, open, close, update, roll, Granted Access
 [Character] The Character responcible for the transaction, including the Investment, God.
-[acct][acct]...: The accounts assosiated with the character that have changed, 21 collomns.
+[acct][Owner/Access]...: The accounts assosiated with the character that have changed, Adjustable Columns Owner/Access tells the player if they own the account, or just have access
 The following is an example of a logfile
---Date---, Type, Name, Bank, Creative Arts, ..., 
-12/7/4713, Open, Grug, +100, +0, +0, ..., +0
-12/7/4713.1, Update, Investment, 100, 0, 0,..., 0
-12/30/4713, Roll, God, 99(2)[4%], 0, 0,..., 0
-12/30/4713.1, Returns, Investment, +4, +0, +0, ..., +0
-12/30/4713.2, Update, Investment, 104, 0, 0, ..., 0
+--Date---, Type, Name, Bank[Owner] 
+12/7/4713, Open, Grug, +100
+12/7/4713.1, Update, Investment, 100
+12/30/4713, Roll, God, 99(2)[4%]
+12/30/4713.1, Returns, Investment, +4
+12/30/4713.2, Update, Investment, 104
 
 Section 1.4.2
 Header for Log File
-Date, Type, Name, Acct1,...,Acct22
+Date, Type, Name, Acct1[Owner/Access],...,AcctN[Owner/Access]
 
 Section 1.4.3
 Format for Roll Lines
 [Date], Roll, God, [D100 Result]([Roll on Breakout if Needed])[[Return%]],...
-The last Section is repeated for each of the 22 Account types
+The last Section is repeated for each of the Accounts it has access to.
 
+Section 1.4.4
+Open Account Line
+When an account is opened, or Granted Access, the account should be appended to the last colomn of the CSV
+So the Header adds +", Account Type[Access/Owner]"
+Each row that comes before the Update line adds +"----" 
+And then the Open/Access line it Adds the amount in the account starting at this point.
+
+===========================================================================================================
 Section 2
+===========================================================================================================
 
 Section 2.1:
 Account Types and Returns
@@ -132,9 +154,11 @@ Section XX Updates
 Section X.0 Update 0.1
 --Created File
 
-Section X.1 Update 0.2
+Section X.1 Update 0.2 
  --Reformated
  --Updated to the new XML Format
  --Added Sections 1-2
  --New Log File Format
  --Renamed to Readme from DataFormat
+        X.1.1 Update 0.2.1
+         --Updated to a Revised Log Format
