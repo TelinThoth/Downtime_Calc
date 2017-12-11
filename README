@@ -1,0 +1,140 @@
+*******************************************************************
+*Table of Contents                                                *
+*******************************************************************
+Section 1: Save Data
+        1.1: Save Data Outline
+        1.2: The CPGN File
+        1.3: The Campaign Data
+        1.4: Log Files
+          1.4.1: Log File Layout
+          1.4.2: Header for Log File
+          1.4.3: Format for Roll Lines
+Section 2: Accounts
+        2.1: Account Types and Returns
+        2.2: Return Calculations
+
+Section XX: Updates
+          X.0 Update 0.1
+          X.1 Update 0.2
+===================================================================
+
+Section 1
+
+Section 1.1 Outline for the Save Data
+---------------------------
+|XXXXXXXXXXX.Cpgn   (ZIP) |
+---------------------------
+  |-Config.csv
+  |-CampaignData.xml
+  |-Log Files
+    |-Character1.csv
+    |-Character2.csv
+    |-...
+
+Section 1.2: 
+The Campaign File: (.cpgn)
+This is a ZipFile that is Intended to break up 'Like' data.
+
+Section 1.3:
+The Campaign Data (xml)
+This is the main storage medium for all the accounts for the program divided into accounts and Characters.
+[Campaign]
+  |-[Players]
+  |    |-[Character 1]
+  |    |  |-[Account Access]
+  |    |-[Character 2]
+  |-[Account]
+
+Section 1.4:
+Log Files
+
+Section 1.4.1
+Log File Layout
+
+These CSVs store the In-game date and store all the changes to the accounts with a short description as to the nature of the changes.
+[Date][Type][Character][acct][acct][acct][acct]...[acct21]
+[Date] is the ingame date for the transaction accuring, the number after the date '.X' is the Update Number for that day.
+[Type]: type of Transaction: Transfer, Withdrawl, deposit, Interest/Returns, open, close, update, roll
+[Character] The Character responcible for the transaction, including the Investment, God.
+[acct][acct]...: The accounts assosiated with the character that have changed, 21 collomns.
+The following is an example of a logfile
+--Date---, Type, Name, Bank, Creative Arts, ..., 
+12/7/4713, Open, Grug, +100, +0, +0, ..., +0
+12/7/4713.1, Update, Investment, 100, 0, 0,..., 0
+12/30/4713, Roll, God, 99(2)[4%], 0, 0,..., 0
+12/30/4713.1, Returns, Investment, +4, +0, +0, ..., +0
+12/30/4713.2, Update, Investment, 104, 0, 0, ..., 0
+
+Section 1.4.2
+Header for Log File
+Date, Type, Name, Acct1,...,Acct22
+
+Section 1.4.3
+Format for Roll Lines
+[Date], Roll, God, [D100 Result]([Roll on Breakout if Needed])[[Return%]],...
+The last Section is repeated for each of the 22 Account types
+
+Section 2
+
+Section 2.1:
+Account Types and Returns
+There are 21 types of Account Files, not including the custom Resuection Fund.
+
+01-[Creative Arts]-------04%--31-95--2d4+1
+02-[Performing Arts]-----02%--36-95--2d6+1
+03-[Banking]-------------02%--11-98--1d4+1
+04-[Common Crafting]-----01%--06-95--1d3+1
+05-[Magical Crafting]----05%--31-95--1d8+1
+06-[Millitary Crafting]--05%--16-90--1d6+1
+07-[Exploration]---------02%--41-85--2d8+1
+08-[Mill/Granary]--------03%--11-98--1d3+1
+09-[Assassins Guild]-----05%--31-95--2d4+1
+10-[Crafting Guilds]-----02%--06-98--1d3+1
+11-[Merchant's Guild]----03%--11-98--1d4+1
+12-[Thieve's Guild]------04%--16-90--1d8+1
+13-[Exotic Imports]------05%--31-90--1d10+1
+14-[Ordinary Imports]----02%--16-95--1d4+1
+15-[Invention Supplies]--03%--41-90--2d6+1
+16-[Protection Supplies]-03%--31-95--1d8+1
+17-[Quarry Imports]------03%--21-90--1d6+1
+18-[Magical Research]----05%--51-75--2d6+1
+19-[Mundane Research]----03%--21-85--1d8+1
+20-[Stable]--------------01%--06-98--1d3+1
+21-[Tavern]--------------01%--06-98--1d4+1
+22-[Resurection Funds]---No Returns
+
+Section 2.2
+Return Calculations
+Roll 1d100
+No returns if the Value is less than the Normal Range 
+Return normal if within the Normal Range
+Retrun Normal * Breakout if greater than the Normal Range.
+
+Example: 1
+03-[Banking]-------------02%--11-98--1d4+1
+Roll 1d100-->10
+Return no Returns
+
+Example 2:
+Roll 1d100-->50
+Return of 2%
+
+Example 3:
+Roll 1d100-->100
+Roll 1d4-->3
+(3+1)*2
+Return of 8%
+
+
+===============================================================
+Section XX Updates
+
+Section X.0 Update 0.1
+--Created File
+
+Section X.1 Update 0.2
+ --Reformated
+ --Updated to the new XML Format
+ --Added Sections 1-2
+ --New Log File Format
+ --Renamed to Readme from DataFormat
