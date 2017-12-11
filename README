@@ -27,7 +27,7 @@ Section XX: Updates
 
 
 ===========================================================================================================
-Section 1
+Section 1: Save Data
 ===========================================================================================================
 
 Section 1.1 Outline for the Save Data
@@ -70,8 +70,9 @@ These CSVs store the In-game date and store all the changes to the accounts with
 [Type]: type of Transaction: Transfer, Withdrawl, deposit, Interest/Returns, open, close, update, roll, Granted Access
 [Character] The Character responcible for the transaction, including the Investment, God.
 [acct][Owner/Access]...: The accounts assosiated with the character that have changed, Adjustable Columns Owner/Access tells the player if they own the account, or just have access
+
 The following is an example of a logfile
---Date---, Type, Name, Bank[Owner] 
+--Date---, Type, Name, 01-Bank[Owner] 
 12/7/4713, Open, Grug, +100
 12/7/4713.1, Update, Investment, 100
 12/30/4713, Roll, God, 99(2)[4%]
@@ -80,11 +81,14 @@ The following is an example of a logfile
 
 Section 1.4.2
 Header for Log File
-Date, Type, Name, Acct1[Owner/Access],...,AcctN[Owner/Access]
+[Account Number],[Account Number]
+Date, Type, Name, [Account Number]-[Account Type]-[[Owner/Access]],...,[Account Number]-[Account Type]-[[Owner/Access]]
+
+Account Numbers are read when being used to determine the order of the accounts for a Character's Log file.
 
 Section 1.4.3
 Format for Roll Lines
-[Date], Roll, God, [D100 Result]([Roll on Breakout if Needed])[[Return%]],...
+[Date], Roll, God, [D100 Result]([Roll on Breakout if Needed])[[Return%]]//Account Applied to if needed//,...
 The last Section is repeated for each of the Accounts it has access to.
 
 Section 1.4.4
@@ -95,7 +99,7 @@ Each row that comes before the Update line adds +"----"
 And then the Open/Access line it Adds the amount in the account starting at this point.
 
 ===========================================================================================================
-Section 2
+Section 2: Accounts
 ===========================================================================================================
 
 Section 2.1:
@@ -147,9 +151,42 @@ Roll 1d4-->3
 (3+1)*2
 Return of 8%
 
+===========================================================================================================
+Section 3: The Config File
+===========================================================================================================
 
-===============================================================
+Section 3.1: Flags
+
+1--Auto Reinvest
+2--Allow Returns to an Alternate Account
+3--Resurection Funds
+   3.1--Resurection Classes/Closest Afforded
+   3.2--Allow Debt
+4--Monthly/Yearly Returns
+5--Allow Debt
+6--Allow Loans
+
+Auto Reinvest: Flags that all of the accounts automaticall take the Interest gained from the month/year and apply it back into the investment.
+Allow Returns to Alternate Account: Allows the Interest to be applied to a seporate account other that the one the investment came from
+Resurection Funds: Flag for Custom type of Investment for home brew
+        Resurection Classes/Closest Afforded: Allow to accrue for a specific class of Resurection, or if it gets applied to a standard cost
+        Allow Debt: Flag to Allow/Disallow Debts for the Resurection Fund Specifically
+Monthly/Yearly Reurns: Normal Interest is accrued on the new year, as opposed to the month. False allows only for the year, True allows for the month
+Allow Debts: Flag to Allow an account to go Negative
+Allow Loans: Flag to Allow a character to take out a loan for personal Gain
+
+Section 3.2 Account Settings
+Format:
+[Type][Return Normal][Min][Max][Breakout Die]
+Example:
+Bank, 2, 11, 98, 1d4
+
+Note: Since the Min Value is needed to be rolled to gain the standard Interest, the Min-Max Range is all that is needed.
+Note: Since all of the Returns have a +1 it can be applied in code
+
+===========================================================================================================
 Section XX Updates
+===========================================================================================================
 
 Section X.0 Update 0.1
 --Created File
