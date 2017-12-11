@@ -18,11 +18,15 @@ Section 1: Save Data
 Section 2: Accounts
         2.1: Account Types and Returns
         2.2: Return Calculations
+        
+Section 3: Config File
+        3.1: Flags
+        3.2: Account Settings
 
 Section XX: Updates
-          X.0 Update 0.1
-          X.1 Update 0.2
-           X.1.1 Update 0.2.1
+        X.0 Update 0.1
+        X.1 Update 0.2
+          X.1.1 Update 0.2.1
 ===========================================================================================================
 
 
@@ -189,7 +193,7 @@ Section XX Updates
 ===========================================================================================================
 
 Section X.0 Update 0.1
---Created File
+ --Created File
 
 Section X.1 Update 0.2 
  --Reformated
@@ -199,3 +203,4 @@ Section X.1 Update 0.2
  --Renamed to Readme from DataFormat
         X.1.1 Update 0.2.1
          --Updated to a Revised Log Format
+         --Added Section 3
