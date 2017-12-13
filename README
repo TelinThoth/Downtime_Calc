@@ -1,6 +1,6 @@
 README.TXT
-Verson 0.2.1
-Last Edit Date: 12/11/17
+Verson 0.2.2
+Last Edit Date: 12/13/17
 ***********************************************************************************************************
 *Table of Contents                                                                                        *
 ***********************************************************************************************************
@@ -53,11 +53,47 @@ Section 1.3:
 The Campaign Data (xml)
 This is the main storage medium for all the accounts for the program divided into accounts and Characters.
 [Campaign]
+  |-[Campaign ID #]
+  |-[Name]
   |-[Players]
-  |    |-[Character 1]
+  |    |-[Player]
+  |       |-[Player ID #]
+  |       |-[Player Name]
+  |       |-[Linked Characters]
+  |          |-[Linked Character ID #]
+  |-[Characters]
+  |    |-[Character]
+  |    |  |-[Character ID #]
+  |    |  |-[Character Name]
   |    |  |-[Account Access]
-  |    |-[Character 2]
-  |-[Account]
+  |-[Accounts]
+       |-[Account]
+          |-[Account ID #]
+          |-[Type]
+          |-[Investment Value]
+          |-[Nickname]
+          |-[Owner's Player ID #]
+
+Campaign Tags:
+        Campaign ID #: Used for internal Tracking. Possible Extra Data with CPGN save Format
+        Name: Campaign name
+
+Player Tags:
+        Player ID: Unique ID (Per CPGN) for the Player
+        Player Name: Name of the Player
+        Linked Characters: Character ID # for each character that player plays. New Line per Character
+
+Character Tags:
+        Character ID #: Unique ID (per CPGN) for the Character
+        Character Name: Name of Character
+        Account Access: Account ID # to the Account(s) that Character can access.
+
+Account Tags:
+        Account ID #: Unique ID (Per CPGN) for the account
+        Type: Type of account being Tracked: 21 types for Standard, 1 Basic non-standard, and option for custom additions.
+        Investment Value: Tracked in Gold. [G].[S][C] Stored as a Double. (Note: Option to store as a INT as Copper but display as a Double)
+        Nickname: Display Name
+        Owner ID #: Character ID of the owner. Only the owner can close accounts. (Possibly Unneeded.)
 
 Section 1.4:
 Log Files
@@ -195,7 +231,7 @@ Section XX Updates
 Section X.0 Update 0.1
  --Created File
 
-Section X.1 Update 0.2 
+Section X.1 Update 0.2 (12/11/17)
  --Reformated
  --Updated to the new XML Format
  --Added Sections 1-2
@@ -204,3 +240,10 @@ Section X.1 Update 0.2
         X.1.1 Update 0.2.1
          --Updated to a Revised Log Format
          --Added Section 3
+
+Section X.2 Update to 0.2.2 (12/13/17)
+ --Expanded the XML Data format to new standard.
+   --Reformatted to be inline with the XML Style Sheet provided by GitIgnored
+ --Added Owner ID # to Account Data Storage
+ 
+ 
