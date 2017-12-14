@@ -1,6 +1,6 @@
 README.TXT
-Verson 0.2.2
-Last Edit Date: 12/13/17
+Verson 0.2.3
+Last Edit Date: 12/14/17
 ***********************************************************************************************************
 *Table of Contents                                                                                        *
 ***********************************************************************************************************
@@ -68,6 +68,7 @@ This is the main storage medium for all the accounts for the program divided int
   |    |  |-[Character ID #]
   |    |  |-[Character Name]
   |    |  |-[Account Access]
+  |    |     |-[Account]
   |-[Accounts]
        |-[Account]
           |-[Account ID #]
@@ -90,6 +91,9 @@ Character Tags:
         Character Name: Name of Character
         Account Access: Account ID # to the Account(s) that Character can access.
 
+Account Access Tags:
+        Account: Multiple Entries for the accounts the Character has. Also used by the Log file to determine the order of the Accounts displayed
+        
 Account Tags:
         Account ID #: Unique ID (Per CPGN) for the account
         Type: Type of account being Tracked: 21 types for Standard, 1 Basic non-standard, and option for custom additions.
@@ -123,10 +127,9 @@ The following is an example of a logfile
 
 Section 1.4.2
 Header for Log File
-[Account Number],[Account Number]
 Date, Type, Name, [Account Number]-[Account Type]-[[Owner/Access]],...,[Account Number]-[Account Type]-[[Owner/Access]]
-
-Account Numbers are read when being used to determine the order of the accounts for a Character's Log file.
+Account Numbers are read when being used to determine the order of the accounts for a Character's Log file. They can be found within
+the Character Tags of the XML.
 
 Section 1.4.3
 Format for Roll Lines
@@ -256,4 +259,7 @@ Section X.2 Update to 0.2.2 (12/13/17)
  --Added Section 3.3
  --Added Allow Strikes option in Flags
  
+ Section X.3 Update to 0.2.3 (12/14/17)
+  --Added Missing Tag in XML File
+  --Added Possile Order for Log File
  
