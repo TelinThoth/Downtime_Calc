@@ -22,6 +22,7 @@ Section 2: Accounts
 Section 3: Config File
         3.1: Flags
         3.2: Account Settings
+        3.3 Other Settings
 
 Section XX: Updates
         X.0 Update 0.1
@@ -206,6 +207,7 @@ Section 3.1: Flags
 4--Monthly/Yearly Returns
 5--Allow Debt
 6--Allow Loans
+7--Allow Strikes
 
 Auto Reinvest: Flags that all of the accounts automaticall take the Interest gained from the month/year and apply it back into the investment.
 Allow Returns to Alternate Account: Allows the Interest to be applied to a seporate account other that the one the investment came from
@@ -215,6 +217,7 @@ Resurection Funds: Flag for Custom type of Investment for home brew
 Monthly/Yearly Reurns: Normal Interest is accrued on the new year, as opposed to the month. False allows only for the year, True allows for the month
 Allow Debts: Flag to Allow an account to go Negative
 Allow Loans: Flag to Allow a character to take out a loan for personal Gain
+Allow Strikes: Flag to Remove Investment after a number of failed returns.
 
 Section 3.2 Account Settings
 Format:
@@ -225,6 +228,10 @@ Bank, 2, 11, 98, 1d4
 Note: Since the Min Value is needed to be rolled to gain the standard Interest, the Min-Max Range is all that is needed.
 Note: Since all of the Returns have a +1 it can be applied in code
 
+Section 3.3 OTher Settings
+1--Strike Count
+
+Stike Count: # Strikes till Investment Failure.
 ===========================================================================================================
 Section XX Updates
 ===========================================================================================================
@@ -246,5 +253,7 @@ Section X.2 Update to 0.2.2 (12/13/17)
  --Expanded the XML Data format to new standard.
    --Reformatted to be inline with the XML Style Sheet provided by GitIgnored
  --Added Owner ID # to Account Data Storage
+ --Added Section 3.3
+ --Added Allow Strikes option in Flags
  
  
