@@ -137,24 +137,22 @@ for the data. As such: none of the data here will be use for recovery.
 
 These CSVs store the In-game date and store all the changes to the accounts with a short description as to the nature of the changes.
 [Date][Type][Character][acct]
-[Date] is the ingame date for the transaction accuring, the number after the date '.X' is the Update Number for that day.
+[Date] is the ingame date for the transaction accuring.
 [Type]: type of Transaction: Transfer, Withdrawl, deposit, Interest/Returns, open, close, update, roll, Granted Access
 [Character] The Character responcible for the transaction, including the Investment, God.
 [acct][Owner/Access]: The accounts assosiated with the character that have changed, Adjustable Columns Owner/Access tells the player if they own the account, or just have access
 
 The following is an example of a logfile
---Date---, Type, Name, 01-Bank[Owner] 
-12/7/4713, Open, Grug, +100
-12/7/4713.1, Update, Investment, 100
-12/30/4713, Roll, God, 99(2)[4%]
-12/30/4713.1, Returns, Investment, +4
-12/30/4713.2, Update, Investment, 104
+--Date--- , Type   , Name      , 01-Bank[Owner] 
+12/07/4713, Open   , Grug      , +100
+12/07/4713, Update , Investment, 100
+12/30/4713, Roll   , God       , 99(2)[4%]
+12/30/4713, Returns, Investment, +4
+12/30/4713, Update , Investment, 104
 
 Section 2.4.2
 Header for Log File
-Date, Type, Name, [Account Number]-[Account Type]-[[Owner/Access]],...,[Account Number]-[Account Type]-[[Owner/Access]]
-Account Numbers are read when being used to determine the order of the accounts for a Character's Log file. They can be found within
-the Character Tags of the XML.
+Date, Type, Name, [Account Number]-[Account Type]-[[Owner/Access]]
 
 Section 2.4.3
 Format for Roll Lines
@@ -174,7 +172,7 @@ Section 3: Accounts
 
 Section 3.1:
 Account Types and Returns
-There are 21 types of Account Files, not including the custom Resuection Fund.
+There are 21 types of Account Type, not including the custom Resuection Fund.
 
 01-[Creative Arts]-------04%--31-95--2d4+1
 02-[Performing Arts]-----02%--36-95--2d6+1
