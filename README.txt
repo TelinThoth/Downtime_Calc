@@ -16,7 +16,6 @@ Section 2: Save Data
           2.4.1: Log File Layout
           2.4.2: Header for Log File
           2.4.3: Format for Roll Lines
-          2.4.4: Open/Access Line Format
           
 Section 3: Accounts
         3.1: Account Types and Returns
@@ -34,6 +33,8 @@ Section XX: Updates
         X.2 Update to 0.2.2
         X.3 Update to 0.2.3
         X.4 Update to 0.2.4
+        X.5 Update to 0.2.5
+        
 ===========================================================================================================
 
 ===========================================================================================================
@@ -90,10 +91,10 @@ This is the main storage medium for all the accounts for the program divided int
   |          |-[Linked Character ID #]
   |-[Characters]
   |    |-[Character]
-  |    |  |-[Character ID #]
-  |    |  |-[Character Name]
-  |    |  |-[Account Access]
-  |    |     |-[Account]
+  |       |-[Character ID #]
+  |       |-[Character Name]
+  |       |-[Account Access]
+  |          |-[Account]
   |-[Accounts]
        |-[Account]
           |-[Account ID #]
@@ -101,6 +102,7 @@ This is the main storage medium for all the accounts for the program divided int
           |-[Investment Value]
           |-[Nickname]
           |-[Owner's Character ID #]
+          |-[Return Account ID #]
 
 Campaign Tags:
         Campaign ID #: Used for internal Tracking. Possible Extra Data with CPGN save Format
@@ -158,13 +160,6 @@ Section 2.4.3
 Format for Roll Lines
 [Date], Roll, God, [D100 Result]([Roll on Breakout if Needed])[[Return%]]//Account Applied to if needed//,...
 The last Section is repeated for each of the Accounts it has access to.
-
-Section 2.4.4
-Open Account Line
-When an account is opened, or Granted Access, the account should be appended to the last colomn of the CSV
-So the Header adds +", Account Type[Access/Owner]"
-Each row that comes before the Update line adds +"----" 
-And then the Open/Access line it Adds the amount in the account starting at this point.
 
 ===========================================================================================================
 Section 3: Accounts
@@ -226,23 +221,10 @@ Section 4: The Config File
 Section 4.1: Flags
 
 1--Auto Reinvest
-2--Allow Returns to an Alternate Account
-3--Resurection Funds
-   3.1--Resurection Classes/Closest Afforded
-   3.2--Allow Debt
-4--Monthly/Yearly Returns
-5--Allow Debt
-6--Allow Loans
-7--Allow Strikes
+2--Monthly/Yearly Returns
+3--Allow Strikes
 
-Auto Reinvest: Flags that all of the accounts automaticall take the Interest gained from the month/year and apply it back into the investment.
-Allow Returns to Alternate Account: Allows the Interest to be applied to a seporate account other that the one the investment came from
-Resurection Funds: Flag for Custom type of Investment for home brew
-        Resurection Classes/Closest Afforded: Allow to accrue for a specific class of Resurection, or if it gets applied to a standard cost
-        Allow Debt: Flag to Allow/Disallow Debts for the Resurection Fund Specifically
-Monthly/Yearly Reurns: Normal Interest is accrued on the new year, as opposed to the month. False allows only for the year, True allows for the month
-Allow Debts: Flag to Allow an account to go Negative
-Allow Loans: Flag to Allow a character to take out a loan for personal Gain
+Auto Reinvest: Flags that all of the accounts automaticall take the Interest gained from the month/year and apply it back into the investment. Also Enables returns to a seporate account.
 Allow Strikes: Flag to Remove Investment after a number of failed returns.
 
 Section 4.2 Account Settings
@@ -259,10 +241,11 @@ Note: Before the end of the year/month, if the PC wants to take the money back, 
 
 Section 4.3 Other Settings
 1--Strike Count
+2--Early Witchdrawl
 
 Stike Count: # Strikes till Investment Failure.
         Defualt value is 3. After 3 strikes an investment can be saved by investing 2 or 3 times the investment
-
+Early Withdrawl: Return Half when withdrawing after acruement.
 
 ===========================================================================================================
 Section XX: Updates
@@ -301,4 +284,6 @@ Section X.4 Update to 0.2.4 (12/17/17)
     |-Log Files should be linked to Accounts, not the Characters. This was a correction that should have been made last update but was overlooked.
     |-There is a possibility we can have Character Display Sheets for Characters, and Players.
 
+ Section X.5 Update to 0.2.5 (12/22/17)
+  --Pruned data from Talk
  
