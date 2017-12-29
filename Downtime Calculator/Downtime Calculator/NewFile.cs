@@ -36,7 +36,6 @@ namespace Downtime_Calculator
             CreateCampaign();
             CreateBasicCampaignData();
             CreateBasicConfigFile();
-            CleanUp();
 
             Close();
         }
@@ -67,7 +66,6 @@ namespace Downtime_Calculator
 
                     zip.CreateEntry("Config.xml");                                  //Creates blank Config File
                     zip.CreateEntry("CampaignData.xml");                            //Creates blank Campaign Data File
-                    zip.CreateEntry("\\Logs\\temp.txt");
                  
                     zip.Dispose();                                                  //closes Zip
                     lastForm.SetFile(cpgn);
@@ -99,14 +97,6 @@ namespace Downtime_Calculator
         private void CreateBasicConfigFile()
         {
             return;
-        }
-
-        private void CleanUp()                                                              //Deletes the Temp File to create a Directory
-        {
-            ZipArchive zip = ZipFile.Open(cpgn, ZipArchiveMode.Update);
-            ZipArchiveEntry temp = zip.GetEntry("\\Logs\\temp.txt");
-            temp.Delete();
-            zip.Dispose();
         }
     }
 }
