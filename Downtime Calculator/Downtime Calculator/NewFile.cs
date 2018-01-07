@@ -55,14 +55,14 @@ namespace Downtime_Calculator
             if (txtbxName.Text != null)                                             //Check if there is acutal text in the box.
             {
                 campaignName = txtbxName.Text;
-                campaignPath = ".\\saves\\";                                         //If there is, begin path string
+                campaignPath = ".\\saves\\";                                        //If there is, begin path string
 
-                if (!Directory.Exists(campaignPath))                                        //If the Directory doesn't exist
-                    Directory.CreateDirectory(campaignPath);                                //create it.
+                if (!Directory.Exists(campaignPath))                                //If the Directory doesn't exist
+                    Directory.CreateDirectory(campaignPath);                        //create it.
 
                 string buffer = txtbxName.Text;                                     //Text buffer for savefile formatting
                 buffer = buffer.ToLower();                                          //make it all lowercase for default saves
-                campaignPath += buffer;                                                     //Append Path to save file
+                campaignPath += buffer;                                             //Append Path to save file
 
                 cpgn = campaignPath + ".cpgn";                                       //.cpgn (campaign) file type--is .zip
                 if (!File.Exists(cpgn))                                             //create file if it doesn't exist. Error out if it does.
@@ -71,7 +71,7 @@ namespace Downtime_Calculator
 
                     zip.CreateEntry("Config.xml");                                  //Creates blank Config File
                     zip.CreateEntry("CampaignData.xml");                            //Creates blank Campaign Data File
-                 
+
                     zip.Dispose();                                                  //closes Zip
                     lastForm.SetFile(cpgn);
                 }
@@ -79,6 +79,8 @@ namespace Downtime_Calculator
                 else
                     MessageBox.Show("That file already exists! Either delete the old one, or select a new name!", "ERROR: File Exsists", MessageBoxButtons.OKCancel);
             }
+            else
+                MessageBox.Show("File name can not be Blank! Please enter a name.", "ERROR: Not a Valid Name", MessageBoxButtons.OKCancel);
         }
 
         private void CreateBasicCampaignData()
@@ -86,7 +88,7 @@ namespace Downtime_Calculator
             ZipArchive zip = ZipFile.Open(cpgn, ZipArchiveMode.Update);
             ZipArchiveEntry campaign = zip.GetEntry("CampaignData.xml");
             StreamWriter ghostWriter = new StreamWriter(campaign.Open());
-
+   
             ghostWriter.WriteLine("<Campaign>");
             ghostWriter.WriteLine("\t<ID>1</ID>");
             ghostWriter.WriteLine("\t<Name>" + campaignName + "</Name>");
@@ -94,9 +96,10 @@ namespace Downtime_Calculator
             ghostWriter.WriteLine("\t<Characters>\n</Characters>");
             ghostWriter.WriteLine("\t<Accounts>\n</Accounts>");
             ghostWriter.WriteLine("</Campaign>");
-
+   
             ghostWriter.Close();
             zip.Dispose();
+            ghostWriter.Dispose();
         }
 
         private void CreateBasicConfigFile()
@@ -115,4 +118,8 @@ namespace Downtime_Calculator
  *****************************************************************
  * Version 1.0.1 12/14/17
  * +Changed extention to .CPGN
+ * +Added quick, and dirty XML writing for the campaignData.xml
+ *****************************************************************
+ * 01/07/18
+ * +Added Error catch for Blank field.
  */ 
