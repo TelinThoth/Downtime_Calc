@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.IO.Compression;
+using Downtime_Calculator.Classes;
 
 namespace Downtime_Calculator
 {
@@ -33,6 +34,10 @@ namespace Downtime_Calculator
 
         private void btnAccept_Click(object sender, EventArgs e)
         {
+            //Aaron Test Code
+            //Campaign cpgn = new Campaign();
+            //cpgn.SaveToLocation(@"C:\Users\Sneaky\Desktop\XMLTest");
+            //End Aaron Test
             CreateCampaign();
             CreateBasicCampaignData();
             CreateBasicConfigFile();
