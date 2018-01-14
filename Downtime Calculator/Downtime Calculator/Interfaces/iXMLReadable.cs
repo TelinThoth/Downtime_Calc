@@ -7,8 +7,9 @@ using System.Xml.Linq;
 
 namespace Downtime_Calculator.Interfaces
 {
-    interface iXMLReadable
+    interface iXMLReadable<T> where T : new()
     {
-        void CreateFromElement(XElement xmlElement);
+        string GetElementName();
+        void PopulateFromElement(XElement xmlElement);
     }
 }

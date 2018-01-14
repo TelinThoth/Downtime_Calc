@@ -36,7 +36,9 @@ namespace Downtime_Calculator
         {
             //Aaron Test Code
             //Campaign cpgn = new Campaign();
-            //cpgn.SaveToLocation(@"C:\Users\Sneaky\Desktop\XMLTest");
+            //cpgn.SaveToLocation(@"C:\Users\Sneaky\Desktop\XMLTest\Default Name.xml");
+            //Campaign cpgn2 = Campaign.LoadFromLocation(@"C:\Users\Sneaky\Desktop\XMLTest\Default Name - Copy.xml");
+            //cpgn2.SaveToLocation(@"C:\Users\Sneaky\Desktop\XMLTest\Load Test Path.xml");
             //End Aaron Test
             CreateCampaign();
             CreateBasicCampaignData();

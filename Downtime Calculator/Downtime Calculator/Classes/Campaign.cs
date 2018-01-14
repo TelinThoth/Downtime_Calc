@@ -8,26 +8,39 @@ using Downtime_Calculator.Interfaces;
 
 namespace Downtime_Calculator.Classes
 {
-    class Campaign : iXMLWritable
+    class Campaign : iXMLWritable, iXMLReadable<Campaign>
     {
-        public string name
-        {
-            get;
-            private set;
-        }
-
         public int ID
         {
             get;
             private set;
         }
 
-        public Campaign()
+        public string name
         {
-            name = "Default Name";
-            ID = 0;
+            get;
+            private set;
         }
 
+        public Campaign() : this(0, "Default Name") {   }
+
+        public Campaign(int ID, string name)
+        {
+            this.ID = ID;
+            this.name = name;
+        }
+
+        public void SaveToLocation(string path)
+        {
+            XMLWriter.Instance.Write(this, path);
+        }
+
+        public static Campaign LoadFromLocation(string path)
+        {
+            return XMLReader.Instance.ReadSingle<Campaign>(path);
+        }
+
+        //iXMLWritable implementation
         public XElement GetAsElement()
         {
             return new XElement("Campaign",
@@ -38,10 +51,16 @@ namespace Downtime_Calculator.Classes
                 new XElement("Accounts"));
         }
 
-        public void SaveToLocation(string path)
+        //iXMLReadable implementation
+        public string GetElementName()
         {
-            string fullPath = path + @"\" + name;
-            XMLWriter.Instance.Write(this, fullPath);
+            return "Campaign";
+        }
+
+        public void PopulateFromElement(XElement xmlElement)
+        {
+            this.ID = int.Parse(xmlElement.Element("ID").Value);
+            this.name = xmlElement.Element("Name").Value;
         }
     }
 }
