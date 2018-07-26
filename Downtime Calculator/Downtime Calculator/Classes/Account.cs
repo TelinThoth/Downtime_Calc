@@ -98,15 +98,15 @@ namespace Downtime_Calculator.Classes
             return new XElement("Account",
                 new XElement("ID", ID),
                 new XElement("Type", accountType),
-                new XElement("Name"),
-                new XElement("Owner"),
-                new XElement("Return Account"));
+                new XElement("Name", name),
+                new XElement("Owner", owner),
+                new XElement("Return Account", returnAccount));
         }
 
         //iXMLReadable implementation
         public string GetElementName()
         {
-            return "Campaign";
+            return "Account";
         }
 
         public void PopulateFromElement(XElement xmlElement)
@@ -114,6 +114,8 @@ namespace Downtime_Calculator.Classes
             this.ID = int.Parse(xmlElement.Element("ID").Value);
             this.accountType = int.Parse(xmlElement.Element("AccountType").Value);
             this.name = xmlElement.Element("Name").Value;
+            this.owner = int.Parse(xmlElement.Element("Owner").Value);
+            this.returnAccount = int.Parse(xmlElement.Element("Return Account").Value);
         }
     }
 

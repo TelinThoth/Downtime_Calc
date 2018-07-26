@@ -56,5 +56,28 @@ namespace Downtime_Calculator.Classes
             this.name = name;
         }
 
+
+        //iXMLWritable implementation
+        public XElement GetAsElement()
+        {
+            return new XElement("Character",
+                new XElement("ID", ID),
+                new XElement("Name", name),
+                new XElement("Account Access"));
+        }
+
+        //iXMLReadable implementation
+        public string GetElementName()
+        {
+            return "Character";
+        }
+
+        public void PopulateFromElement(XElement xmlElement)
+        {
+            this.ID = int.Parse(xmlElement.Element("ID").Value);
+            this.name = xmlElement.Element("Name").Value;
+            string temp = xmlElement.Element("Account Access").Value;
+        }
     }
+}
 }
