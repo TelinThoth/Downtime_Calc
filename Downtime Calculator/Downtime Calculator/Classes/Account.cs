@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using Downtime_Calculator.Interfaces;
 
 namespace Downtime_Calculator.Classes
 {
-    public class Account
+    public class Account : iXMLWritable, iXMLReadable<Campaign>
     {
         public int ID
         {
@@ -90,5 +92,30 @@ namespace Downtime_Calculator.Classes
             this.returnAccount = this.ID;
         }
 
+        //iXMLWritable implementation
+        public XElement GetAsElement()
+        {
+            return new XElement("Account",
+                new XElement("ID", ID),
+                new XElement("Type", accountType),
+                new XElement("Name"),
+                new XElement("Owner"),
+                new XElement("Return Account"));
+        }
+
+        //iXMLReadable implementation
+        public string GetElementName()
+        {
+            return "Campaign";
+        }
+
+        public void PopulateFromElement(XElement xmlElement)
+        {
+            this.ID = int.Parse(xmlElement.Element("ID").Value);
+            this.accountType = int.Parse(xmlElement.Element("AccountType").Value);
+            this.name = xmlElement.Element("Name").Value;
+        }
     }
+
+}
 }
