@@ -47,11 +47,6 @@ namespace Downtime_Calculator
             Close();
         }
 
-        private void txtbxName_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void CreateCampaign()
         {
             if (txtbxName.Text != null)                                             //Check if there is acutal text in the box.
@@ -106,7 +101,53 @@ namespace Downtime_Calculator
 
         private void CreateBasicConfigFile()
         {
-            return;
+            ZipArchive zip = ZipFile.Open(cpgn, ZipArchiveMode.Update);
+            ZipArchiveEntry campaign = zip.GetEntry("Config.xml");
+            StreamWriter ghostWriter = new StreamWriter(campaign.Open());
+
+            ghostWriter.WriteLine("<Config>");
+            ghostWriter.WriteLine("\t<Flags>\n");
+            ghostWriter.WriteLine("\t\t<AutoReinv>False</AutoReinv>");
+            ghostWriter.WriteLine("\t\t<YearlyRet>True</YearlyRet>");
+            ghostWriter.WriteLine("\t\t<AllowStrikes>False</AllowStrikes>");
+            ghostWriter.WriteLine("\t</Flags>");
+            ghostWriter.WriteLine("\t<Accounts>");
+            ghostWriter.WriteLine("\t\t<Account id=\"00\">Creative Arts,4,31,95,2d4,1</Account>");
+            ghostWriter.WriteLine("\t\t<Account id=\"01\">Performing Arts,2,36,95,2d6,1</Account>");
+            ghostWriter.WriteLine("\t\t<Account id=\"02\">Banking,2,11,98,1d4,0</Account>");
+            ghostWriter.WriteLine("\t\t<Account id=\"03\">Common Crafting,1,06,95,1d3,1</Account>");
+            ghostWriter.WriteLine("\t\t<Account id=\"04\">Magical Crafting,5,31,95,1d8,1</Account>");
+            ghostWriter.WriteLine("\t\t<Account id=\"05\">Millitary Crafting,5,16,90,1d6,1</Account>");
+            ghostWriter.WriteLine("\t\t<Account id=\"06\">Exploration,2,41,85,2d8,1</Account>");
+            ghostWriter.WriteLine("\t\t<Account id=\"07\">Mill/Granary,3,11,98,1d3,1</Account>");
+            ghostWriter.WriteLine("\t\t<Account id=\"08\">Assassins Guild,5,31,95,2d4,1</Account>");
+            ghostWriter.WriteLine("\t\t<Account id=\"09\">Crafting Guilds,2,06,98,1d3,1</Account>");
+            ghostWriter.WriteLine("\t\t<Account id=\"10\">Merchant's Guild,3,11,98,1d4,1</Account>");
+            ghostWriter.WriteLine("\t\t<Account id=\"11\">Thieve's Guild,4,16,90,1d8,1</Account>");
+            ghostWriter.WriteLine("\t\t<Account id=\"12\">Exotic Imports,5,31,90,1d10,1</Account>");
+            ghostWriter.WriteLine("\t\t<Account id=\"13\">Ordinary Imports,2,16,95,1d4,1</Account>");
+            ghostWriter.WriteLine("\t\t<Account id=\"14\">Invention Supplies,3,41,90,2d6,1</Account>");
+            ghostWriter.WriteLine("\t\t<Account id=\"15\">Protection Supplies,3,31,95,1d8,1</Account>");
+            ghostWriter.WriteLine("\t\t<Account id=\"16\">Quarry Imports,3,21,90,1d6,1</Account>");
+            ghostWriter.WriteLine("\t\t<Account id=\"17\">Magical Research,5,51,75,2d6,1</Account>");
+            ghostWriter.WriteLine("\t\t<Account id=\"18\">Mundane Research,3,21,85,1d8,1</Account>");
+            ghostWriter.WriteLine("\t\t<Account id=\"19\">Stable,1,06,98,1d3,1</Account>");
+            ghostWriter.WriteLine("\t\t<Account id=\"20\">Tavern,1,06,98,1d4,1</Account>");
+            ghostWriter.WriteLine("\t\t<Account id=\"21\">Resurection Funds,,,,,</Account>");
+            ghostWriter.WriteLine("\t</Accounts>");
+            ghostWriter.WriteLine("\t<MiscSettings>");
+            ghostWriter.WriteLine("\t\t<StrikeCount>3</StrikeCount>");
+            ghostWriter.WriteLine("\t</MiscSettings>");
+            ghostWriter.WriteLine("</Config>");
+
+            ghostWriter.Close();
+            zip.Dispose();
+            ghostWriter.Dispose();
+        }
+
+        public string GetFileName()
+        {
+            return cpgn;
         }
     }
 }

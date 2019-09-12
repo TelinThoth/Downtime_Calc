@@ -49,7 +49,7 @@ namespace Downtime_Calculator.Classes
 
         //Constructors
 
-        public Character() : this(0, "Character Name") { };
+        public Character() : this(0, "Character Name") { }
         public Character(int ID, String name)
         {
             this.ID = ID;
@@ -79,5 +79,4 @@ namespace Downtime_Calculator.Classes
             string temp = xmlElement.Element("Account Access").Value;
         }
     }
-}
 }

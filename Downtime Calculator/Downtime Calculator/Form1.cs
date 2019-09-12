@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.IO.Compression;
+using Downtime_Calculator.Classes;
+using System.Xml;
 
 namespace Downtime_Calculator
 {
@@ -26,14 +28,22 @@ namespace Downtime_Calculator
             
         }
 
+        #region Button Functions
         private void newToolStripButton_Click(object sender, EventArgs e)
         {
             Form1 oldForm = this;
             NewFile form = new NewFile(ref oldForm);
             form.Show();
+            ReadFile(fileName);
         }
-        
-
+        private void OpenToolStripButton_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            fileDialog.ShowDialog();
+            fileName = fileDialog.FileName;
+            ReadFile(fileName);
+        }
+        #endregion
         /*
          * SetFile sets the path for the current open .CPGN file
         */
@@ -49,5 +59,12 @@ namespace Downtime_Calculator
                 return true;
             }
         }
+
+        public void ReadFile(string path)
+        {
+            XMLReader reader = new XMLReader();
+            reader.Read<Object>(path);
+        }
+
     }
 }

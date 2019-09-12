@@ -49,7 +49,6 @@
             this.txtbxName.Name = "txtbxName";
             this.txtbxName.Size = new System.Drawing.Size(100, 20);
             this.txtbxName.TabIndex = 1;
-            this.txtbxName.TextChanged += new System.EventHandler(this.txtbxName_TextChanged);
             // 
             // btnCancel
             // 

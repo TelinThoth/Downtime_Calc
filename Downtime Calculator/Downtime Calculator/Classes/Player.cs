@@ -82,4 +82,3 @@ namespace Downtime_Calculator.Classes
     }
 
 }
-}

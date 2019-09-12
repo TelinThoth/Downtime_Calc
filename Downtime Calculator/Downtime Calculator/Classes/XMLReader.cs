@@ -22,7 +22,7 @@ namespace Downtime_Calculator.Classes
         }
         private static XMLReader instance;
 
-        private XMLReader()
+        public XMLReader()
         {
             //intentionally empty
         }
