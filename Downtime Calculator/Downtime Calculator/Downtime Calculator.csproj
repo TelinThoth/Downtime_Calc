@@ -49,6 +49,14 @@
     <Compile Include="Classes\Account.cs" />
     <Compile Include="Classes\Campaign.cs" />
     <Compile Include="Classes\Character.cs" />
+    <Compile Include="Classes\DisplayData.cs" />
+    <Compile Include="Events\NewCampaignCreatedEventArgs.cs" />
+    <Compile Include="NewPlayer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewPlayer.Designer.cs">
+      <DependentUpon>NewPlayer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Classes\Player.cs" />
     <Compile Include="Classes\XMLReader.cs" />
     <Compile Include="Classes\XMLWriter.cs" />
@@ -68,6 +76,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="NewPlayer.resx">
+      <DependentUpon>NewPlayer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

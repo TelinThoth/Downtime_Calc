@@ -103,5 +103,44 @@ namespace Downtime_Calculator.Classes
         {
             //To be filled in...
         }
+
+        public List<Character> GetPlayerCharacters(int playerID)
+        {
+            List<Player> t_player = players.FindAll(x => x.ID == playerID);
+            List<int> t_charIDs = new List<int>();
+
+            foreach (Player p_player in t_player)
+            {
+                t_charIDs.AddRange(p_player.characters);
+            }
+
+            List<Character> t_chars = new List<Character>();
+            foreach(int p_charID in t_charIDs)
+            {
+                t_chars.AddRange(characters.FindAll(x => x.ID == p_charID));
+            }
+            t_chars.Sort();
+
+            return t_chars;
+        }
+
+        public List<Account> GetCharacterAccounts(int charaID)
+        {
+            List<Character> t_character = characters.FindAll(x => x.ID == charaID);
+            List<int> t_accountIDs = new List<int>();
+
+            foreach(Character p_chars in t_character)
+            {
+                t_accountIDs.AddRange(p_chars.accountAccess);
+            }
+
+            List<Account> t_accounts = new List<Account>();
+            foreach(int p_accountID in t_accountIDs)
+            {
+                t_accounts.AddRange(accounts.FindAll(x => x.ID == p_accountID));
+            }
+
+            return t_accounts;
+        }
     }
 }

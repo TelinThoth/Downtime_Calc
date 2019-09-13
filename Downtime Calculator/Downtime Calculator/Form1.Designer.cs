@@ -36,6 +36,14 @@
             this.printToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.helpToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.lstBx_Players = new System.Windows.Forms.ListBox();
+            this.lstBx_Characters = new System.Windows.Forms.ListBox();
+            this.lstBx_Accounts = new System.Windows.Forms.ListBox();
+            this.tb_Investment = new System.Windows.Forms.TextBox();
+            this.lbl_Investment = new System.Windows.Forms.Label();
+            this.btn_Add = new System.Windows.Forms.Button();
+            this.btn_removePlayer = new System.Windows.Forms.Button();
+            this.btn_newPlayer = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,7 +59,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.toolStrip1.Size = new System.Drawing.Size(537, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(581, 25);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -83,6 +91,7 @@
             this.saveToolStripButton.Name = "saveToolStripButton";
             this.saveToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.saveToolStripButton.Text = "&Save";
+            this.saveToolStripButton.Click += new System.EventHandler(this.SaveToolStripButton_Click);
             // 
             // printToolStripButton
             // 
@@ -107,11 +116,90 @@
             this.helpToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.helpToolStripButton.Text = "He&lp";
             // 
+            // lstBx_Players
+            // 
+            this.lstBx_Players.FormattingEnabled = true;
+            this.lstBx_Players.Location = new System.Drawing.Point(0, 29);
+            this.lstBx_Players.Name = "lstBx_Players";
+            this.lstBx_Players.Size = new System.Drawing.Size(132, 433);
+            this.lstBx_Players.TabIndex = 1;
+            this.lstBx_Players.SelectedIndexChanged += new System.EventHandler(this.LstBx_Players_SelectedIndexChanged);
+            // 
+            // lstBx_Characters
+            // 
+            this.lstBx_Characters.FormattingEnabled = true;
+            this.lstBx_Characters.Location = new System.Drawing.Point(138, 29);
+            this.lstBx_Characters.Name = "lstBx_Characters";
+            this.lstBx_Characters.Size = new System.Drawing.Size(132, 459);
+            this.lstBx_Characters.TabIndex = 2;
+            this.lstBx_Characters.SelectedIndexChanged += new System.EventHandler(this.LstBx_Characters_SelectedIndexChanged);
+            // 
+            // lstBx_Accounts
+            // 
+            this.lstBx_Accounts.FormattingEnabled = true;
+            this.lstBx_Accounts.Location = new System.Drawing.Point(276, 29);
+            this.lstBx_Accounts.Name = "lstBx_Accounts";
+            this.lstBx_Accounts.Size = new System.Drawing.Size(132, 459);
+            this.lstBx_Accounts.TabIndex = 3;
+            this.lstBx_Accounts.SelectedIndexChanged += new System.EventHandler(this.LstBx_Accounts_SelectedIndexChanged);
+            // 
+            // tb_Investment
+            // 
+            this.tb_Investment.Location = new System.Drawing.Point(414, 45);
+            this.tb_Investment.Name = "tb_Investment";
+            this.tb_Investment.Size = new System.Drawing.Size(155, 20);
+            this.tb_Investment.TabIndex = 4;
+            // 
+            // lbl_Investment
+            // 
+            this.lbl_Investment.AutoSize = true;
+            this.lbl_Investment.Location = new System.Drawing.Point(415, 29);
+            this.lbl_Investment.Name = "lbl_Investment";
+            this.lbl_Investment.Size = new System.Drawing.Size(89, 13);
+            this.lbl_Investment.TabIndex = 5;
+            this.lbl_Investment.Text = "Account Balance";
+            // 
+            // btn_Add
+            // 
+            this.btn_Add.Location = new System.Drawing.Point(414, 72);
+            this.btn_Add.Name = "btn_Add";
+            this.btn_Add.Size = new System.Drawing.Size(75, 23);
+            this.btn_Add.TabIndex = 6;
+            this.btn_Add.Text = "Add Funds";
+            this.btn_Add.UseVisualStyleBackColor = true;
+            // 
+            // btn_removePlayer
+            // 
+            this.btn_removePlayer.Location = new System.Drawing.Point(0, 494);
+            this.btn_removePlayer.Name = "btn_removePlayer";
+            this.btn_removePlayer.Size = new System.Drawing.Size(132, 23);
+            this.btn_removePlayer.TabIndex = 7;
+            this.btn_removePlayer.Text = "Remove Player";
+            this.btn_removePlayer.UseVisualStyleBackColor = true;
+            // 
+            // btn_newPlayer
+            // 
+            this.btn_newPlayer.Location = new System.Drawing.Point(0, 468);
+            this.btn_newPlayer.Name = "btn_newPlayer";
+            this.btn_newPlayer.Size = new System.Drawing.Size(132, 23);
+            this.btn_newPlayer.TabIndex = 8;
+            this.btn_newPlayer.Text = "Add New Player";
+            this.btn_newPlayer.UseVisualStyleBackColor = true;
+            this.btn_newPlayer.Click += new System.EventHandler(this.Btn_newPlayer_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(537, 443);
+            this.ClientSize = new System.Drawing.Size(581, 524);
+            this.Controls.Add(this.btn_newPlayer);
+            this.Controls.Add(this.btn_removePlayer);
+            this.Controls.Add(this.btn_Add);
+            this.Controls.Add(this.lbl_Investment);
+            this.Controls.Add(this.tb_Investment);
+            this.Controls.Add(this.lstBx_Accounts);
+            this.Controls.Add(this.lstBx_Characters);
+            this.Controls.Add(this.lstBx_Players);
             this.Controls.Add(this.toolStrip1);
             this.Name = "Form1";
             this.Text = "Bank Of Abadar";
@@ -132,6 +220,14 @@
         private System.Windows.Forms.ToolStripButton printToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
         private System.Windows.Forms.ToolStripButton helpToolStripButton;
+        private System.Windows.Forms.ListBox lstBx_Players;
+        private System.Windows.Forms.ListBox lstBx_Characters;
+        private System.Windows.Forms.ListBox lstBx_Accounts;
+        private System.Windows.Forms.TextBox tb_Investment;
+        private System.Windows.Forms.Label lbl_Investment;
+        private System.Windows.Forms.Button btn_Add;
+        private System.Windows.Forms.Button btn_removePlayer;
+        private System.Windows.Forms.Button btn_newPlayer;
     }
 }
 

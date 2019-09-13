@@ -11,6 +11,7 @@ using System.IO;
 using System.IO.Compression;
 using Downtime_Calculator.Classes;
 using Downtime_Calculator.Interfaces;
+using Downtime_Calculator.Events;
 using System.Xml;
 
 namespace Downtime_Calculator
@@ -18,15 +19,14 @@ namespace Downtime_Calculator
     public partial class Form1 : Form
     {
         private string fileName;
+        private DisplayData disDaemon;
 
         private Campaign currentGame;
-        private List<Account> accounts;
-        private List<Character> characters;
-        private List<Player> players;
 
         public Form1()
         {
             InitializeComponent();
+            disDaemon = new DisplayData();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -38,17 +38,45 @@ namespace Downtime_Calculator
         private void newToolStripButton_Click(object sender, EventArgs e)
         {
             Form1 oldForm = this;
-            NewFile form = new NewFile(ref oldForm);
+            NewFile form = new NewFile();
             form.Show();
-            ReadFile(fileName);
+            form.NewCampaignCreated += NewCampaignCreated;
         }
         private void OpenToolStripButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.ShowDialog();
             fileName = fileDialog.FileName;
-            PrepLoad();
             ReadFile(fileName);
+        }
+        #endregion
+
+        #region Selection Functions
+        private void LstBx_Players_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lstBx_Characters.Items.Clear();
+            lstBx_Accounts.Items.Clear();
+            tb_Investment.Text = "";
+
+            disDaemon.displayCharacters = currentGame.GetPlayerCharacters(disDaemon.PullPlayerID(lstBx_Players.SelectedIndex)).ToArray();
+            lstBx_Characters.Items.AddRange(disDaemon.GetDisplayCharName().ToArray());
+        }
+
+        private void LstBx_Characters_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lstBx_Accounts.Items.Clear();
+            tb_Investment.Text = "";
+
+            disDaemon.displayAcounts = currentGame.GetCharacterAccounts(disDaemon.PullCharaID(lstBx_Characters.SelectedIndex)).ToArray();
+            lstBx_Accounts.Items.AddRange(disDaemon.GetDisplayAccName().ToArray());
+        }
+
+        private void LstBx_Accounts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tb_Investment.Text = "";
+
+            int acctID = disDaemon.displayAcounts[lstBx_Characters.SelectedIndex].ID;
+            tb_Investment.Text = currentGame.accounts.Find(x => x.ID == acctID).investment.ToString();
         }
         #endregion
         /*
@@ -65,11 +93,6 @@ namespace Downtime_Calculator
                 fileName = path;
                 return true;
             }
-        }
-
-        private void PrepLoad()
-        {
-
         }
 
         public void ReadFile(string path)
@@ -92,7 +115,34 @@ namespace Downtime_Calculator
             ghostReader.Close();
             ghostReader.Dispose();
             cpgnFile.Dispose();
+
+            PopulatePlayersField();
         }
 
+        private void PopulatePlayersField()
+        {
+            lstBx_Players.Items.Clear();
+            disDaemon.displayPlayers = currentGame.players.ToArray();
+            lstBx_Players.Items.AddRange(disDaemon.GetDisplayPlayName().ToArray());
+        }
+
+        private void SaveToolStripButton_Click(object sender, EventArgs e)
+        {
+            currentGame.SaveToLocation(fileName);
+        }
+
+        private void Btn_newPlayer_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        public void NewCampaignCreated(object sender, NewCampaignCreatedEventArgs e)
+        {
+            if (e.fileName != null)
+            {
+                fileName = e.fileName;
+                ReadFile(fileName);
+            }
+        }
     }
 }

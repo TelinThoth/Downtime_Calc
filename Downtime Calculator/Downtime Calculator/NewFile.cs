@@ -16,6 +16,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.IO.Compression;
 using Downtime_Calculator.Classes;
+using Downtime_Calculator.Events;
 
 namespace Downtime_Calculator
 {
@@ -24,15 +25,13 @@ namespace Downtime_Calculator
         private string cpgn = null;                                                 //Full Path to File
         private string campaignName = null;                                         //Primary name of Game
         private string campaignPath = null;                                         //Partial Path to file (No .cpgn)
-
-        private Form1 lastForm;
-        public NewFile(ref Form1 oldForm)
+        private NewCampaignCreatedEventArgs args;
+        public NewFile()
         {
             InitializeComponent();
-            lastForm = oldForm;
         }
 
-        private void btnAccept_Click(object sender, EventArgs e)
+        public void btnAccept_Click(object sender, EventArgs e)
         {
             //Aaron Test Code
             //Campaign cpgn = new Campaign();
@@ -44,6 +43,10 @@ namespace Downtime_Calculator
             CreateBasicCampaignData();
             CreateBasicConfigFile();
 
+            //Add Event signal for fileName return.
+            args = new NewCampaignCreatedEventArgs();
+            args.fileName = cpgn;
+            OnNewCampaignCreated(args);
             Close();
         }
 
@@ -70,7 +73,6 @@ namespace Downtime_Calculator
                     zip.CreateEntry("CampaignData.xml");                            //Creates blank Campaign Data File
 
                     zip.Dispose();                                                  //closes Zip
-                    lastForm.SetFile(cpgn);
                 }
 
                 else
@@ -145,9 +147,14 @@ namespace Downtime_Calculator
             ghostWriter.Dispose();
         }
 
-        public string GetFileName()
+
+        public event EventHandler<NewCampaignCreatedEventArgs> NewCampaignCreated;
+
+        //why you no work?
+        public virtual void OnNewCampaignCreated(NewCampaignCreatedEventArgs e)
         {
-            return cpgn;
+            EventHandler<NewCampaignCreatedEventArgs> handler = NewCampaignCreated;
+            handler?.Invoke(this, e);
         }
     }
 }
@@ -165,4 +172,8 @@ namespace Downtime_Calculator
  *****************************************************************
  * 01/07/18
  * +Added Error catch for Blank field.
- */ 
+ *****************************************************************
+ * Version 1.0.3 09/13/2019
+ * +Added: Dfault Config Data
+ * *Changed return value to an event.
+ */
