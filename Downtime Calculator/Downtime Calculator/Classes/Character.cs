@@ -9,7 +9,7 @@ using Downtime_Calculator.Classes;
 
 namespace Downtime_Calculator.Classes
 {
-    public class Character
+    public class Character : iXMLWritable, iXMLReadable<Character>
     {
         public int ID
         {
@@ -49,11 +49,15 @@ namespace Downtime_Calculator.Classes
 
         //Constructors
 
-        public Character() : this(0, "Character Name") { }
+        public Character() : this(0, "Character Name")
+        {
+            accountAccess = new List<int>();
+        }
         public Character(int ID, String name)
         {
             this.ID = ID;
             this.name = name;
+            accountAccess = new List<int>();
         }
 
 
@@ -63,7 +67,7 @@ namespace Downtime_Calculator.Classes
             return new XElement("Character",
                 new XElement("ID", ID),
                 new XElement("Name", name),
-                new XElement("Account Access"));
+                new XElement("AccountAccess"));
         }
 
         //iXMLReadable implementation
@@ -76,7 +80,11 @@ namespace Downtime_Calculator.Classes
         {
             this.ID = int.Parse(xmlElement.Element("ID").Value);
             this.name = xmlElement.Element("Name").Value;
-            string temp = xmlElement.Element("Account Access").Value;
+            XElement[] temp = xmlElement.Element("AccountAccess").Descendants().ToArray();
+            foreach (XElement t in temp)
+            {
+                accountAccess.Add(int.Parse(t.Value));
+            }
         }
     }
 }

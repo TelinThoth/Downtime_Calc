@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.IO.Compression;
 using Downtime_Calculator.Classes;
+using Downtime_Calculator.Interfaces;
 using System.Xml;
 
 namespace Downtime_Calculator
@@ -17,6 +18,11 @@ namespace Downtime_Calculator
     public partial class Form1 : Form
     {
         private string fileName;
+
+        private Campaign currentGame;
+        private List<Account> accounts;
+        private List<Character> characters;
+        private List<Player> players;
 
         public Form1()
         {
@@ -41,6 +47,7 @@ namespace Downtime_Calculator
             OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.ShowDialog();
             fileName = fileDialog.FileName;
+            PrepLoad();
             ReadFile(fileName);
         }
         #endregion
@@ -60,10 +67,31 @@ namespace Downtime_Calculator
             }
         }
 
+        private void PrepLoad()
+        {
+
+        }
+
         public void ReadFile(string path)
         {
-            XMLReader reader = new XMLReader();
-            reader.Read<Object>(path);
+            string tempFile = ".\\tempCPGNdt.xml";
+            ZipArchive cpgnFile = ZipFile.OpenRead(path);
+            
+            ZipArchiveEntry cpgnData = cpgnFile.GetEntry("CampaignData.xml");
+
+            StreamReader ghostReader = new StreamReader(cpgnData.Open());
+            File.WriteAllText(tempFile, ghostReader.ReadToEnd());
+            currentGame = Campaign.LoadFromLocation(tempFile);
+
+
+            //Cleanup
+            if(File.Exists(tempFile))
+            {
+                File.Delete(tempFile);
+            }
+            ghostReader.Close();
+            ghostReader.Dispose();
+            cpgnFile.Dispose();
         }
 
     }

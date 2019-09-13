@@ -8,7 +8,7 @@ using Downtime_Calculator.Interfaces;
 
 namespace Downtime_Calculator.Classes
 {
-    public class Account : iXMLWritable, iXMLReadable<Campaign>
+    public class Account : iXMLWritable, iXMLReadable<Account>
     {
         public int ID
         {
@@ -98,9 +98,10 @@ namespace Downtime_Calculator.Classes
             return new XElement("Account",
                 new XElement("ID", ID),
                 new XElement("Type", accountType),
+                new XElement("Investment", investment),
                 new XElement("Name", name),
                 new XElement("Owner", owner),
-                new XElement("Return Account", returnAccount));
+                new XElement("ReturnAccount", returnAccount));
         }
 
         //iXMLReadable implementation
@@ -112,10 +113,11 @@ namespace Downtime_Calculator.Classes
         public void PopulateFromElement(XElement xmlElement)
         {
             this.ID = int.Parse(xmlElement.Element("ID").Value);
-            this.accountType = int.Parse(xmlElement.Element("AccountType").Value);
+            this.accountType = int.Parse(xmlElement.Element("Type").Value);
+            this.investment = int.Parse(xmlElement.Element("Investment").Value);
             this.name = xmlElement.Element("Name").Value;
             this.owner = int.Parse(xmlElement.Element("Owner").Value);
-            this.returnAccount = int.Parse(xmlElement.Element("Return Account").Value);
+            this.returnAccount = int.Parse(xmlElement.Element("ReturnAccount").Value);
         }
     }
 
