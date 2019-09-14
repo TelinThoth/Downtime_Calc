@@ -37,17 +37,32 @@ namespace Downtime_Calculator
         #region Button Functions
         private void newToolStripButton_Click(object sender, EventArgs e)
         {
-            Form1 oldForm = this;
             NewFile form = new NewFile();
-            form.Show();
             form.NewCampaignCreated += NewCampaignCreated;
+            form.Show();
         }
         private void OpenToolStripButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.ShowDialog();
             fileName = fileDialog.FileName;
-            ReadFile(fileName);
+            if (fileName != "")
+            {
+                ReadFile(fileName);
+            }
+        }
+        private void SaveToolStripButton_Click(object sender, EventArgs e)
+        {
+            if (fileName != null)
+            {
+                currentGame.SaveToLocation(fileName);
+            }
+        }
+        private void Btn_newPlayer_Click(object sender, EventArgs e)
+        {
+            NewPlayer form = new NewPlayer();
+            form.NewPlayerCreated += NewPlayerCreated;
+            form.Show();
         }
         #endregion
 
@@ -82,18 +97,6 @@ namespace Downtime_Calculator
         /*
          * SetFile sets the path for the current open .CPGN file
         */
-        public bool SetFile(string path)
-        {
-            if (path == null)
-            {
-                return false;
-            }
-            else
-            {
-                fileName = path;
-                return true;
-            }
-        }
 
         public void ReadFile(string path)
         {
@@ -115,7 +118,8 @@ namespace Downtime_Calculator
             ghostReader.Close();
             ghostReader.Dispose();
             cpgnFile.Dispose();
-
+            string curName = currentGame.name;
+            this.Text = "Bank Of Abadar - " + currentGame.name;
             PopulatePlayersField();
         }
 
@@ -126,16 +130,7 @@ namespace Downtime_Calculator
             lstBx_Players.Items.AddRange(disDaemon.GetDisplayPlayName().ToArray());
         }
 
-        private void SaveToolStripButton_Click(object sender, EventArgs e)
-        {
-            currentGame.SaveToLocation(fileName);
-        }
-
-        private void Btn_newPlayer_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        #region EventListeners
         public void NewCampaignCreated(object sender, NewCampaignCreatedEventArgs e)
         {
             if (e.fileName != null)
@@ -144,5 +139,17 @@ namespace Downtime_Calculator
                 ReadFile(fileName);
             }
         }
+
+        public void NewPlayerCreated(object sender, NewPlayerArgs e)
+        {
+            if(e.playerName != null)
+            {
+                int playerID = currentGame.GetLowestEmptyPlayerID();
+                currentGame.players.Add(new Player(playerID, e.playerName));
+                PopulatePlayersField();
+            }
+        }
+
+        #endregion
     }
 }

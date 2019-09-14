@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Downtime_Calculator.Interfaces;
+using System.IO;
+using System.IO.Compression;
 
 namespace Downtime_Calculator.Classes
 {
@@ -44,7 +46,13 @@ namespace Downtime_Calculator.Classes
 
         public void SaveToLocation(string path)
         {
-            XMLWriter.Instance.Write(this, path);
+            ZipArchive cpgnFile = ZipFile.Open(path, ZipArchiveMode.Update);
+            ZipArchiveEntry z_campaign = cpgnFile.GetEntry("CampaignData.xml");
+            string line = GetAsElement().ToString();
+            byte[] byteString = Encoding.UTF8.GetBytes(line);
+            z_campaign.Open().Write(byteString, 0, byteString.Length);
+
+            cpgnFile.Dispose();
         }
 
         public static Campaign LoadFromLocation(string path)
@@ -55,12 +63,23 @@ namespace Downtime_Calculator.Classes
         //iXMLWritable implementation
         public XElement GetAsElement()
         {
+            List<XElement> x_players = new List<XElement>();
+            List<XElement> x_characters = new List<XElement>();
+            List<XElement> x_accounts = new List<XElement>();
+
+            foreach (Player t_player in players)
+                x_players.Add(t_player.GetAsElement());
+            foreach (Character t_character in characters)
+                x_characters.Add(t_character.GetAsElement());
+            foreach (Account t_account in accounts)
+                x_accounts.Add(t_account.GetAsElement());
+
             return new XElement("Campaign",
                 new XElement("ID", ID),
                 new XElement("Name", name),
-                new XElement("Players"),
-                new XElement("Characters"),
-                new XElement("Accounts"));
+                new XElement("Players", x_players),
+                new XElement("Characters", x_characters),
+                new XElement("Accounts", x_accounts));
         }
 
         //iXMLReadable implementation
@@ -141,6 +160,21 @@ namespace Downtime_Calculator.Classes
             }
 
             return t_accounts;
+        }
+
+        public int GetLowestEmptyPlayerID()
+        {
+            /*
+             Index and IDs start at 0.
+             If a player was deleted, there will be a spot that 'skips' a number.
+             0,1,3... <- 2 removed
+             if that happens this will go to Index 2 and get an ID of 3...thus: 2 is the lowest available ID.
+            */
+            int i = 0;
+            for(i = 0; i < players.Count && players[i].ID == i; i++)
+            {
+            }
+            return i;
         }
     }
 }

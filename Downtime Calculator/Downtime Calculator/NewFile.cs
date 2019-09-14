@@ -91,9 +91,9 @@ namespace Downtime_Calculator
             ghostWriter.WriteLine("<Campaign>");
             ghostWriter.WriteLine("\t<ID>1</ID>");
             ghostWriter.WriteLine("\t<Name>" + campaignName + "</Name>");
-            ghostWriter.WriteLine("\t<Players>\n</Players>");
-            ghostWriter.WriteLine("\t<Characters>\n</Characters>");
-            ghostWriter.WriteLine("\t<Accounts>\n</Accounts>");
+            ghostWriter.WriteLine("\t<Players>\n\t</Players>");
+            ghostWriter.WriteLine("\t<Characters>\n\t</Characters>");
+            ghostWriter.WriteLine("\t<Accounts>\n\t</Accounts>");
             ghostWriter.WriteLine("</Campaign>");
    
             ghostWriter.Close();
@@ -150,7 +150,6 @@ namespace Downtime_Calculator
 
         public event EventHandler<NewCampaignCreatedEventArgs> NewCampaignCreated;
 
-        //why you no work?
         public virtual void OnNewCampaignCreated(NewCampaignCreatedEventArgs e)
         {
             EventHandler<NewCampaignCreatedEventArgs> handler = NewCampaignCreated;

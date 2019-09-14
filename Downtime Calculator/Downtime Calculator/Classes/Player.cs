@@ -65,10 +65,13 @@ namespace Downtime_Calculator.Classes
         //iXMLWritable implementation
         public XElement GetAsElement()
         {
+            List<XElement> t_characters = new List<XElement>();
+            foreach (int charID in characters)
+                t_characters.Add(new XElement("Character", charID));
             return new XElement("Player",
                 new XElement("ID", ID),
                 new XElement("Name", name),
-                new XElement("Characters"));
+                new XElement("Characters",t_characters));
         }
 
         //iXMLReadable implementation
