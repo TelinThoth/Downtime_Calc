@@ -27,6 +27,7 @@ namespace Downtime_Calculator
         {
             InitializeComponent();
             disDaemon = new DisplayData();
+            ChangeFileLoadState(false);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -64,10 +65,33 @@ namespace Downtime_Calculator
             form.NewPlayerCreated += NewPlayerCreated;
             form.Show();
         }
+
+        private void Btn_AddCharacter_Click(object sender, EventArgs e)
+        {
+            NewCharacter form = new NewCharacter(disDaemon.displayPlayers, lstBx_Players.SelectedIndex);
+            form.NewCharacterCreated += NewCharacterCreated;
+            form.Show();
+        }
         #endregion
 
         #region Selection Functions
         private void LstBx_Players_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            PlayerSelected();
+        }
+
+        private void LstBx_Characters_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CharacterSelected();
+        }
+
+        private void LstBx_Accounts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            AccountSelected();
+        }
+        #endregion
+
+        private void PlayerSelected()
         {
             lstBx_Characters.Items.Clear();
             lstBx_Accounts.Items.Clear();
@@ -75,9 +99,11 @@ namespace Downtime_Calculator
 
             disDaemon.displayCharacters = currentGame.GetPlayerCharacters(disDaemon.PullPlayerID(lstBx_Players.SelectedIndex)).ToArray();
             lstBx_Characters.Items.AddRange(disDaemon.GetDisplayCharName().ToArray());
+
+            ChangePlayerSelectedState(true);
         }
 
-        private void LstBx_Characters_SelectedIndexChanged(object sender, EventArgs e)
+        private void CharacterSelected()
         {
             lstBx_Accounts.Items.Clear();
             tb_Investment.Text = "";
@@ -86,17 +112,13 @@ namespace Downtime_Calculator
             lstBx_Accounts.Items.AddRange(disDaemon.GetDisplayAccName().ToArray());
         }
 
-        private void LstBx_Accounts_SelectedIndexChanged(object sender, EventArgs e)
+        private void AccountSelected()
         {
             tb_Investment.Text = "";
 
             int acctID = disDaemon.displayAcounts[lstBx_Characters.SelectedIndex].ID;
             tb_Investment.Text = currentGame.accounts.Find(x => x.ID == acctID).investment.ToString();
         }
-        #endregion
-        /*
-         * SetFile sets the path for the current open .CPGN file
-        */
 
         public void ReadFile(string path)
         {
@@ -121,6 +143,7 @@ namespace Downtime_Calculator
             string curName = currentGame.name;
             this.Text = "Bank Of Abadar - " + currentGame.name;
             PopulatePlayersField();
+            ChangeFileLoadState(true);
         }
 
         private void PopulatePlayersField()
@@ -128,6 +151,46 @@ namespace Downtime_Calculator
             lstBx_Players.Items.Clear();
             disDaemon.displayPlayers = currentGame.players.ToArray();
             lstBx_Players.Items.AddRange(disDaemon.GetDisplayPlayName().ToArray());
+        }
+
+        private void ChangeFileLoadState(Boolean isFileLoaded)
+        {
+            if(isFileLoaded)
+            {
+                btn_newPlayer.Enabled = true;
+                btn_removePlayer.Enabled = false;
+                btn_AddFunds.Enabled = false;
+                btn_addAccount.Enabled = false;
+                btn_AddCharacter.Enabled = false;
+                btn_deleteCharacter.Enabled = false;
+                btn_removeAccess.Enabled = false;
+                btn_removePlayer.Enabled = false;
+            }
+            else
+            {
+                btn_newPlayer.Enabled = false;
+                btn_removePlayer.Enabled = false;
+                btn_AddFunds.Enabled = false;
+                btn_addAccount.Enabled = false;
+                btn_AddCharacter.Enabled = false;
+                btn_deleteCharacter.Enabled = false;
+                btn_removeAccess.Enabled = false;
+                btn_removePlayer.Enabled = false;
+            }
+        }
+
+        private void ChangePlayerSelectedState(Boolean isPlayerSelected)
+        {
+            if(isPlayerSelected)
+            {
+                btn_removePlayer.Enabled = true;
+                btn_AddCharacter.Enabled = true;
+            }
+            else
+            {
+                btn_removePlayer.Enabled = false;
+                btn_deleteCharacter.Enabled = false;
+            }
         }
 
         #region EventListeners
@@ -140,14 +203,24 @@ namespace Downtime_Calculator
             }
         }
 
-        public void NewPlayerCreated(object sender, NewPlayerArgs e)
+        public void NewPlayerCreated(object sender, NewPlayerCreatedArgs e)
         {
             if(e.playerName != null)
             {
                 int playerID = currentGame.GetLowestEmptyPlayerID();
                 currentGame.players.Add(new Player(playerID, e.playerName));
+                //SortList Here
                 PopulatePlayersField();
             }
+        }
+
+        public void NewCharacterCreated(object sender, NewCharacterCreatedArgs e)
+        {
+            int characterID = currentGame.GetLowestEmptyCharacterID();
+            Character tempCharacter = new Character(characterID, e.characterName);
+            currentGame.players.Find(x => x.ID == e.attachedPlayerID).AddCharacter(tempCharacter);
+            currentGame.characters.Add(tempCharacter);
+            PlayerSelected();
         }
 
         #endregion

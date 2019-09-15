@@ -11,8 +11,15 @@ namespace Downtime_Calculator.Events
         public string fileName { get; set; }
     }
 
-    public class NewPlayerArgs : EventArgs
+    public class NewPlayerCreatedArgs : EventArgs
     {
         public string playerName { get; set; }
+    }
+
+    public class NewCharacterCreatedArgs : EventArgs
+    {
+
+        public string characterName { get; set; }
+        public int attachedPlayerID { get; set; }
     }
 }

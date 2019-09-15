@@ -13,10 +13,10 @@ namespace Downtime_Calculator.Classes
 {
     public partial class NewPlayer : Form
     {
-        NewPlayerArgs args;
+        NewPlayerCreatedArgs args;
         public NewPlayer()
         {
-            args = new NewPlayerArgs();
+            args = new NewPlayerCreatedArgs();
             InitializeComponent();
         }
 
@@ -30,13 +30,17 @@ namespace Downtime_Calculator.Classes
             }
         }
 
-        public event EventHandler<NewPlayerArgs> NewPlayerCreated;
-
-        public virtual void OnNewPlayerCreated(NewPlayerArgs e)
+        private void Btn_cancel_Click(object sender, EventArgs e)
         {
-            EventHandler<NewPlayerArgs> handler = NewPlayerCreated;
-            handler?.Invoke(this, e);
+            this.Close();
         }
 
+        public event EventHandler<NewPlayerCreatedArgs> NewPlayerCreated;
+
+        public virtual void OnNewPlayerCreated(NewPlayerCreatedArgs e)
+        {
+            EventHandler<NewPlayerCreatedArgs> handler = NewPlayerCreated;
+            handler?.Invoke(this, e);
+        }
     }
 }

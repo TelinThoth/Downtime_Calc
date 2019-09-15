@@ -31,6 +31,7 @@
             this.tb_playerName = new System.Windows.Forms.TextBox();
             this.lbl_playerName = new System.Windows.Forms.Label();
             this.bnt_addPlayer = new System.Windows.Forms.Button();
+            this.btn_cancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // tb_playerName
@@ -51,7 +52,7 @@
             // 
             // bnt_addPlayer
             // 
-            this.bnt_addPlayer.Location = new System.Drawing.Point(12, 55);
+            this.bnt_addPlayer.Location = new System.Drawing.Point(186, 54);
             this.bnt_addPlayer.Name = "bnt_addPlayer";
             this.bnt_addPlayer.Size = new System.Drawing.Size(108, 23);
             this.bnt_addPlayer.TabIndex = 2;
@@ -59,11 +60,22 @@
             this.bnt_addPlayer.UseVisualStyleBackColor = true;
             this.bnt_addPlayer.Click += new System.EventHandler(this.Bnt_addPlayer_Click);
             // 
+            // btn_cancel
+            // 
+            this.btn_cancel.Location = new System.Drawing.Point(12, 54);
+            this.btn_cancel.Name = "btn_cancel";
+            this.btn_cancel.Size = new System.Drawing.Size(75, 23);
+            this.btn_cancel.TabIndex = 3;
+            this.btn_cancel.Text = "Cancel";
+            this.btn_cancel.UseVisualStyleBackColor = true;
+            this.btn_cancel.Click += new System.EventHandler(this.Btn_cancel_Click);
+            // 
             // NewPlayer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(305, 86);
+            this.Controls.Add(this.btn_cancel);
             this.Controls.Add(this.bnt_addPlayer);
             this.Controls.Add(this.lbl_playerName);
             this.Controls.Add(this.tb_playerName);
@@ -79,5 +91,6 @@
         private System.Windows.Forms.TextBox tb_playerName;
         private System.Windows.Forms.Label lbl_playerName;
         private System.Windows.Forms.Button bnt_addPlayer;
+        private System.Windows.Forms.Button btn_cancel;
     }
 }

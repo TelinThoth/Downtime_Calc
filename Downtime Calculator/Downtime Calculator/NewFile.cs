@@ -155,6 +155,11 @@ namespace Downtime_Calculator
             EventHandler<NewCampaignCreatedEventArgs> handler = NewCampaignCreated;
             handler?.Invoke(this, e);
         }
+
+        private void BtnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
 

@@ -172,8 +172,23 @@ namespace Downtime_Calculator.Classes
             */
             int i = 0;
             for(i = 0; i < players.Count && players[i].ID == i; i++)
-            {
-            }
+            { }
+            return i;
+        }
+
+        public int GetLowestEmptyCharacterID()
+        {
+            int i = 0;
+            for (i = 0; i < characters.Count && characters[i].ID == i; i++)
+            { }
+            return i;
+        }
+
+        public int GetLowestEmptyAccountID()
+        {
+            int i = 0;
+            for (i = 0; i < accounts.Count && accounts[i].ID == i; i++)
+            { }
             return i;
         }
     }

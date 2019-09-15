@@ -33,7 +33,6 @@
             this.newToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.printToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.helpToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.lstBx_Players = new System.Windows.Forms.ListBox();
@@ -41,9 +40,13 @@
             this.lstBx_Accounts = new System.Windows.Forms.ListBox();
             this.tb_Investment = new System.Windows.Forms.TextBox();
             this.lbl_Investment = new System.Windows.Forms.Label();
-            this.btn_Add = new System.Windows.Forms.Button();
+            this.btn_AddFunds = new System.Windows.Forms.Button();
             this.btn_removePlayer = new System.Windows.Forms.Button();
             this.btn_newPlayer = new System.Windows.Forms.Button();
+            this.btn_AddCharacter = new System.Windows.Forms.Button();
+            this.btn_deleteCharacter = new System.Windows.Forms.Button();
+            this.btn_removeAccess = new System.Windows.Forms.Button();
+            this.btn_addAccount = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,7 +56,6 @@
             this.newToolStripButton,
             this.openToolStripButton,
             this.saveToolStripButton,
-            this.printToolStripButton,
             this.toolStripSeparator,
             this.helpToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
@@ -93,15 +95,6 @@
             this.saveToolStripButton.Text = "&Save";
             this.saveToolStripButton.Click += new System.EventHandler(this.SaveToolStripButton_Click);
             // 
-            // printToolStripButton
-            // 
-            this.printToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.printToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("printToolStripButton.Image")));
-            this.printToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.printToolStripButton.Name = "printToolStripButton";
-            this.printToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.printToolStripButton.Text = "&Print";
-            // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
@@ -130,7 +123,7 @@
             this.lstBx_Characters.FormattingEnabled = true;
             this.lstBx_Characters.Location = new System.Drawing.Point(138, 29);
             this.lstBx_Characters.Name = "lstBx_Characters";
-            this.lstBx_Characters.Size = new System.Drawing.Size(132, 459);
+            this.lstBx_Characters.Size = new System.Drawing.Size(132, 433);
             this.lstBx_Characters.TabIndex = 2;
             this.lstBx_Characters.SelectedIndexChanged += new System.EventHandler(this.LstBx_Characters_SelectedIndexChanged);
             // 
@@ -139,7 +132,7 @@
             this.lstBx_Accounts.FormattingEnabled = true;
             this.lstBx_Accounts.Location = new System.Drawing.Point(276, 29);
             this.lstBx_Accounts.Name = "lstBx_Accounts";
-            this.lstBx_Accounts.Size = new System.Drawing.Size(132, 459);
+            this.lstBx_Accounts.Size = new System.Drawing.Size(132, 433);
             this.lstBx_Accounts.TabIndex = 3;
             this.lstBx_Accounts.SelectedIndexChanged += new System.EventHandler(this.LstBx_Accounts_SelectedIndexChanged);
             // 
@@ -159,14 +152,14 @@
             this.lbl_Investment.TabIndex = 5;
             this.lbl_Investment.Text = "Account Balance";
             // 
-            // btn_Add
+            // btn_AddFunds
             // 
-            this.btn_Add.Location = new System.Drawing.Point(414, 72);
-            this.btn_Add.Name = "btn_Add";
-            this.btn_Add.Size = new System.Drawing.Size(75, 23);
-            this.btn_Add.TabIndex = 6;
-            this.btn_Add.Text = "Add Funds";
-            this.btn_Add.UseVisualStyleBackColor = true;
+            this.btn_AddFunds.Location = new System.Drawing.Point(414, 72);
+            this.btn_AddFunds.Name = "btn_AddFunds";
+            this.btn_AddFunds.Size = new System.Drawing.Size(75, 23);
+            this.btn_AddFunds.TabIndex = 6;
+            this.btn_AddFunds.Text = "Add Funds";
+            this.btn_AddFunds.UseVisualStyleBackColor = true;
             // 
             // btn_removePlayer
             // 
@@ -187,14 +180,55 @@
             this.btn_newPlayer.UseVisualStyleBackColor = true;
             this.btn_newPlayer.Click += new System.EventHandler(this.Btn_newPlayer_Click);
             // 
+            // btn_AddCharacter
+            // 
+            this.btn_AddCharacter.Location = new System.Drawing.Point(138, 468);
+            this.btn_AddCharacter.Name = "btn_AddCharacter";
+            this.btn_AddCharacter.Size = new System.Drawing.Size(131, 23);
+            this.btn_AddCharacter.TabIndex = 9;
+            this.btn_AddCharacter.Text = "Attach Character";
+            this.btn_AddCharacter.UseVisualStyleBackColor = true;
+            this.btn_AddCharacter.Click += new System.EventHandler(this.Btn_AddCharacter_Click);
+            // 
+            // btn_deleteCharacter
+            // 
+            this.btn_deleteCharacter.Location = new System.Drawing.Point(138, 494);
+            this.btn_deleteCharacter.Name = "btn_deleteCharacter";
+            this.btn_deleteCharacter.Size = new System.Drawing.Size(131, 23);
+            this.btn_deleteCharacter.TabIndex = 10;
+            this.btn_deleteCharacter.Text = "Delete Character";
+            this.btn_deleteCharacter.UseVisualStyleBackColor = true;
+            // 
+            // btn_removeAccess
+            // 
+            this.btn_removeAccess.Location = new System.Drawing.Point(275, 494);
+            this.btn_removeAccess.Name = "btn_removeAccess";
+            this.btn_removeAccess.Size = new System.Drawing.Size(131, 23);
+            this.btn_removeAccess.TabIndex = 12;
+            this.btn_removeAccess.Text = "Remove Access";
+            this.btn_removeAccess.UseVisualStyleBackColor = true;
+            // 
+            // btn_addAccount
+            // 
+            this.btn_addAccount.Location = new System.Drawing.Point(275, 468);
+            this.btn_addAccount.Name = "btn_addAccount";
+            this.btn_addAccount.Size = new System.Drawing.Size(131, 23);
+            this.btn_addAccount.TabIndex = 11;
+            this.btn_addAccount.Text = "Attach Account";
+            this.btn_addAccount.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(581, 524);
+            this.Controls.Add(this.btn_removeAccess);
+            this.Controls.Add(this.btn_addAccount);
+            this.Controls.Add(this.btn_deleteCharacter);
+            this.Controls.Add(this.btn_AddCharacter);
             this.Controls.Add(this.btn_newPlayer);
             this.Controls.Add(this.btn_removePlayer);
-            this.Controls.Add(this.btn_Add);
+            this.Controls.Add(this.btn_AddFunds);
             this.Controls.Add(this.lbl_Investment);
             this.Controls.Add(this.tb_Investment);
             this.Controls.Add(this.lstBx_Accounts);
@@ -217,7 +251,6 @@
         private System.Windows.Forms.ToolStripButton newToolStripButton;
         private System.Windows.Forms.ToolStripButton openToolStripButton;
         private System.Windows.Forms.ToolStripButton saveToolStripButton;
-        private System.Windows.Forms.ToolStripButton printToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
         private System.Windows.Forms.ToolStripButton helpToolStripButton;
         private System.Windows.Forms.ListBox lstBx_Players;
@@ -225,9 +258,13 @@
         private System.Windows.Forms.ListBox lstBx_Accounts;
         private System.Windows.Forms.TextBox tb_Investment;
         private System.Windows.Forms.Label lbl_Investment;
-        private System.Windows.Forms.Button btn_Add;
+        private System.Windows.Forms.Button btn_AddFunds;
         private System.Windows.Forms.Button btn_removePlayer;
         private System.Windows.Forms.Button btn_newPlayer;
+        private System.Windows.Forms.Button btn_AddCharacter;
+        private System.Windows.Forms.Button btn_deleteCharacter;
+        private System.Windows.Forms.Button btn_removeAccess;
+        private System.Windows.Forms.Button btn_addAccount;
     }
 }
 
