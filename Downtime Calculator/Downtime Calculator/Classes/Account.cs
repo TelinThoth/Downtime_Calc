@@ -8,7 +8,7 @@ using Downtime_Calculator.Interfaces;
 
 namespace Downtime_Calculator.Classes
 {
-    public class Account : iXMLWritable, iXMLReadable<Account>
+    public class Account : iXMLWritable, iXMLReadable<Account>, IComparable<Account>
     {
         public int ID
         {
@@ -118,6 +118,26 @@ namespace Downtime_Calculator.Classes
             this.name = xmlElement.Element("Name").Value;
             this.owner = int.Parse(xmlElement.Element("Owner").Value);
             this.returnAccount = int.Parse(xmlElement.Element("ReturnAccount").Value);
+        }
+        
+        public int CompareTo(Account i_account)
+        {
+            if (i_account == null)
+                return 1;
+            else
+                return this.ID.CompareTo(i_account.ID);
+        }
+
+        public string GetAccountName()
+        {
+            if (name.Trim() == "")
+            {
+                return "Account #: " + ID.ToString();
+            }
+            else
+            {
+                return name;
+            }
         }
     }
 

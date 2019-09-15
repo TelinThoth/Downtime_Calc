@@ -9,7 +9,7 @@ using Downtime_Calculator.Classes;
 
 namespace Downtime_Calculator.Classes
 {
-    public class Character : iXMLWritable, iXMLReadable<Character>
+    public class Character : iXMLWritable, iXMLReadable<Character>, IComparable<Character>
     {
         public int ID
         {
@@ -88,6 +88,14 @@ namespace Downtime_Calculator.Classes
             {
                 accountAccess.Add(int.Parse(t.Value));
             }
+        }
+
+        public int CompareTo(Character i_character)
+        {
+            if (i_character == null)
+                return 1;
+            else
+                return this.ID.CompareTo(i_character.ID);
         }
     }
 }

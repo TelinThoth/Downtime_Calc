@@ -9,7 +9,7 @@ using Downtime_Calculator.Classes;
 
 namespace Downtime_Calculator.Classes
 {
-    public class Player : iXMLWritable, iXMLReadable<Player>
+    public class Player : iXMLWritable, iXMLReadable<Player>, IComparable<Player>
     {
         public int ID
         {
@@ -94,6 +94,14 @@ namespace Downtime_Calculator.Classes
         public static Player[] LoadFromLocation(string path)
         {
             return XMLReader.Instance.Read<Player>(path);
+        }
+
+        public int CompareTo(Player i_player)
+        {
+            if (i_player == null)
+                return 1;
+            else
+                return this.ID.CompareTo(i_player.ID);
         }
     }
 

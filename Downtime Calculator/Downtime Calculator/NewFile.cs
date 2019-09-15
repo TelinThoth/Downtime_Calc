@@ -125,7 +125,7 @@ namespace Downtime_Calculator
             ghostWriter.WriteLine("\t\t<Account id=\"08\">Assassins Guild,5,31,95,2d4,1</Account>");
             ghostWriter.WriteLine("\t\t<Account id=\"09\">Crafting Guilds,2,06,98,1d3,1</Account>");
             ghostWriter.WriteLine("\t\t<Account id=\"10\">Merchant's Guild,3,11,98,1d4,1</Account>");
-            ghostWriter.WriteLine("\t\t<Account id=\"11\">Thieve's Guild,4,16,90,1d8,1</Account>");
+            ghostWriter.WriteLine("\t\t<Account id=\"11\">Thieves Guild,4,16,90,1d8,1</Account>");
             ghostWriter.WriteLine("\t\t<Account id=\"12\">Exotic Imports,5,31,90,1d10,1</Account>");
             ghostWriter.WriteLine("\t\t<Account id=\"13\">Ordinary Imports,2,16,95,1d4,1</Account>");
             ghostWriter.WriteLine("\t\t<Account id=\"14\">Invention Supplies,3,41,90,2d6,1</Account>");

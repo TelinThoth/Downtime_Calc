@@ -53,6 +53,8 @@ namespace Downtime_Calculator.Classes
             z_campaign.Open().Write(byteString, 0, byteString.Length);
 
             cpgnFile.Dispose();
+
+            //Save Config Section...
         }
 
         public static Campaign LoadFromLocation(string path)
@@ -162,14 +164,17 @@ namespace Downtime_Calculator.Classes
             return t_accounts;
         }
 
-        public int GetLowestEmptyPlayerID()
-        {
-            /*
+        #region GetLowestIDs
+        /*
              Index and IDs start at 0.
              If a player was deleted, there will be a spot that 'skips' a number.
              0,1,3... <- 2 removed
              if that happens this will go to Index 2 and get an ID of 3...thus: 2 is the lowest available ID.
-            */
+        */
+        public int GetLowestEmptyPlayerID()
+        {
+
+            players.Sort();
             int i = 0;
             for(i = 0; i < players.Count && players[i].ID == i; i++)
             { }
@@ -178,6 +183,7 @@ namespace Downtime_Calculator.Classes
 
         public int GetLowestEmptyCharacterID()
         {
+            characters.Sort();
             int i = 0;
             for (i = 0; i < characters.Count && characters[i].ID == i; i++)
             { }
@@ -186,10 +192,12 @@ namespace Downtime_Calculator.Classes
 
         public int GetLowestEmptyAccountID()
         {
+            accounts.Sort();
             int i = 0;
             for (i = 0; i < accounts.Count && accounts[i].ID == i; i++)
             { }
             return i;
         }
+        #endregion
     }
 }

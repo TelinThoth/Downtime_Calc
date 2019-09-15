@@ -160,6 +160,7 @@
             this.btn_AddFunds.TabIndex = 6;
             this.btn_AddFunds.Text = "Add Funds";
             this.btn_AddFunds.UseVisualStyleBackColor = true;
+            this.btn_AddFunds.Click += new System.EventHandler(this.Btn_AddFunds_Click);
             // 
             // btn_removePlayer
             // 
@@ -216,6 +217,7 @@
             this.btn_addAccount.TabIndex = 11;
             this.btn_addAccount.Text = "Attach Account";
             this.btn_addAccount.UseVisualStyleBackColor = true;
+            this.btn_addAccount.Click += new System.EventHandler(this.Btn_addAccount_Click);
             // 
             // Form1
             // 
