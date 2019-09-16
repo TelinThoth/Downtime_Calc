@@ -40,14 +40,6 @@ namespace Downtime_Calculator
             //cpgn2.SaveToLocation(@"C:\Users\Sneaky\Desktop\XMLTest\Load Test Path.xml");
             //End Aaron Test
             CreateCampaign();
-            CreateBasicCampaignData();
-            CreateBasicConfigFile();
-
-            //Add Event signal for fileName return.
-            args = new NewCampaignCreatedEventArgs();
-            args.fileName = cpgn;
-            OnNewCampaignCreated(args);
-            Close();
         }
 
         private void CreateCampaign()
@@ -73,32 +65,34 @@ namespace Downtime_Calculator
                     zip.CreateEntry("CampaignData.xml");                            //Creates blank Campaign Data File
 
                     zip.Dispose();                                                  //closes Zip
-                }
 
+                    CreateBasicCampaignData();
+                    CreateBasicConfigFile();
+
+                    //Add Event signal for fileName return.
+                    args = new NewCampaignCreatedEventArgs();
+                    args.fileName = cpgn;
+                    OnNewCampaignCreated(args);
+
+                    Close();
+                }
                 else
+                {
                     MessageBox.Show("That file already exists! Either delete the old one, or select a new name!", "ERROR: File Exsists", MessageBoxButtons.OKCancel);
+                    return;
+                }
             }
             else
+            {
                 MessageBox.Show("File name can not be Blank! Please enter a name.", "ERROR: Not a Valid Name", MessageBoxButtons.OKCancel);
+                return;
+            }
         }
 
         private void CreateBasicCampaignData()
         {
-            ZipArchive zip = ZipFile.Open(cpgn, ZipArchiveMode.Update);
-            ZipArchiveEntry campaign = zip.GetEntry("CampaignData.xml");
-            StreamWriter ghostWriter = new StreamWriter(campaign.Open());
-   
-            ghostWriter.WriteLine("<Campaign>");
-            ghostWriter.WriteLine("\t<ID>1</ID>");
-            ghostWriter.WriteLine("\t<Name>" + campaignName + "</Name>");
-            ghostWriter.WriteLine("\t<Players>\n\t</Players>");
-            ghostWriter.WriteLine("\t<Characters>\n\t</Characters>");
-            ghostWriter.WriteLine("\t<Accounts>\n\t</Accounts>");
-            ghostWriter.WriteLine("</Campaign>");
-   
-            ghostWriter.Close();
-            zip.Dispose();
-            ghostWriter.Dispose();
+            Campaign newFile = new Campaign(0, campaignName);
+            newFile.SaveToLocation(cpgn);
         }
 
         private void CreateBasicConfigFile()
@@ -113,7 +107,7 @@ namespace Downtime_Calculator
             ghostWriter.WriteLine("\t\t<YearlyRet>True</YearlyRet>");
             ghostWriter.WriteLine("\t\t<AllowStrikes>False</AllowStrikes>");
             ghostWriter.WriteLine("\t</Flags>");
-            ghostWriter.WriteLine("\t<Accounts>");
+            ghostWriter.WriteLine("\t<AccountTypes>");
             ghostWriter.WriteLine("\t\t<Account id=\"00\">Creative Arts,4,31,95,2d4,1</Account>");
             ghostWriter.WriteLine("\t\t<Account id=\"01\">Performing Arts,2,36,95,2d6,1</Account>");
             ghostWriter.WriteLine("\t\t<Account id=\"02\">Banking,2,11,98,1d4,0</Account>");
@@ -136,7 +130,7 @@ namespace Downtime_Calculator
             ghostWriter.WriteLine("\t\t<Account id=\"19\">Stable,1,06,98,1d3,1</Account>");
             ghostWriter.WriteLine("\t\t<Account id=\"20\">Tavern,1,06,98,1d4,1</Account>");
             ghostWriter.WriteLine("\t\t<Account id=\"21\">Resurection Funds,,,,,</Account>");
-            ghostWriter.WriteLine("\t</Accounts>");
+            ghostWriter.WriteLine("\t</AccountTypes>");
             ghostWriter.WriteLine("\t<MiscSettings>");
             ghostWriter.WriteLine("\t\t<StrikeCount>3</StrikeCount>");
             ghostWriter.WriteLine("\t</MiscSettings>");

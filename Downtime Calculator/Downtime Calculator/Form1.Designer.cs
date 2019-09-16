@@ -140,8 +140,10 @@
             // 
             this.tb_Investment.Location = new System.Drawing.Point(414, 45);
             this.tb_Investment.Name = "tb_Investment";
+            this.tb_Investment.ReadOnly = true;
             this.tb_Investment.Size = new System.Drawing.Size(155, 20);
-            this.tb_Investment.TabIndex = 4;
+            this.tb_Investment.TabIndex = 3;
+            this.tb_Investment.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // lbl_Investment
             // 

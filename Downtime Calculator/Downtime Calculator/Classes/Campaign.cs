@@ -46,14 +46,7 @@ namespace Downtime_Calculator.Classes
 
         public void SaveToLocation(string path)
         {
-            ZipArchive cpgnFile = ZipFile.Open(path, ZipArchiveMode.Update);
-            ZipArchiveEntry z_campaign = cpgnFile.GetEntry("CampaignData.xml");
-            string line = GetAsElement().ToString();
-            byte[] byteString = Encoding.UTF8.GetBytes(line);
-            z_campaign.Open().Write(byteString, 0, byteString.Length);
-
-            cpgnFile.Dispose();
-
+            XMLWriter.Instance.WriteToZip(this, path, "CampaignData.xml");
             //Save Config Section...
         }
 
@@ -65,6 +58,10 @@ namespace Downtime_Calculator.Classes
         //iXMLWritable implementation
         public XElement GetAsElement()
         {
+            players.Sort();
+            characters.Sort();
+            accounts.Sort();
+
             List<XElement> x_players = new List<XElement>();
             List<XElement> x_characters = new List<XElement>();
             List<XElement> x_accounts = new List<XElement>();

@@ -168,7 +168,7 @@ namespace Downtime_Calculator
             tb_Investment.Text = "";
 
             int acctID = disDaemon.displayAcounts[lstBx_Accounts.SelectedIndex].ID;
-            tb_Investment.Text = currentGame.accounts.Find(x => x.ID == acctID).investment.ToString();
+            tb_Investment.Text = currentGame.accounts.Find(x => x.ID == acctID).investment.ToString("N2");
         }
 
         public void ReadFile(string path)
