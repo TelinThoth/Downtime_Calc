@@ -46,12 +46,40 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Account.cs" />
+    <Compile Include="Classes\Campaign.cs" />
+    <Compile Include="Classes\Character.cs" />
+    <Compile Include="Classes\DisplayData.cs" />
+    <Compile Include="Events\CustomEventsArgs.cs" />
+    <Compile Include="NewAccount.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewAccount.Designer.cs">
+      <DependentUpon>NewAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewCharacter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewCharacter.Designer.cs">
+      <DependentUpon>NewCharacter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewPlayer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewPlayer.Designer.cs">
+      <DependentUpon>NewPlayer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\Player.cs" />
+    <Compile Include="Classes\XMLReader.cs" />
+    <Compile Include="Classes\XMLWriter.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\iXMLReadable.cs" />
+    <Compile Include="Interfaces\iXMLWritable.cs" />
     <Compile Include="NewFile.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -60,6 +88,15 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="NewAccount.resx">
+      <DependentUpon>NewAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewCharacter.resx">
+      <DependentUpon>NewCharacter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewPlayer.resx">
+      <DependentUpon>NewPlayer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -88,6 +125,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
