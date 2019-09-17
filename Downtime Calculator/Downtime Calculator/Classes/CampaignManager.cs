@@ -10,7 +10,7 @@ using System.IO.Compression;
 
 namespace Downtime_Calculator.Classes
 {
-    class Campaign : iXMLWritable, iXMLReadable<Campaign>
+    class CampaignManager : iXMLWritable, iXMLReadable<CampaignManager>
     {
         public int ID
         {
@@ -28,14 +28,14 @@ namespace Downtime_Calculator.Classes
         public List<Character> characters;
         public List<Player> players;
 
-        public Campaign() : this(0, "Default Name")
+        public CampaignManager() : this(0, "Default Name")
         {
             accounts = new List<Account>();
             characters = new List<Character>();
             players = new List<Player>();
         }
 
-        public Campaign(int ID, string name)
+        public CampaignManager(int ID, string name)
         {
             this.ID = ID;
             this.name = name;
@@ -50,9 +50,9 @@ namespace Downtime_Calculator.Classes
             //Save Config Section...
         }
 
-        public static Campaign LoadFromLocation(string path)
+        public static CampaignManager LoadFromLocation(string path)
         {
-            return XMLReader.Instance.ReadSingle<Campaign>(path);
+            return XMLReader.Instance.ReadSingle<CampaignManager>(path);
         }
 
         //iXMLWritable implementation
@@ -93,25 +93,27 @@ namespace Downtime_Calculator.Classes
             this.name = xmlElement.Element("Name").Value;
 
             XElement[] pullData = xmlElement.Element("Players").Descendants("Player").ToArray();
-            Player tempPlayer = new Player();
             foreach(XElement data in pullData)
             {
+                Player tempPlayer = new Player();
                 tempPlayer.PopulateFromElement(data);
                 players.Add(tempPlayer);
             }
 
             pullData = xmlElement.Element("Characters").Descendants("Character").ToArray();
-            Character tempCharacter = new Character();
+
             foreach (XElement data in pullData)
             {
+                Character tempCharacter = new Character();
                 tempCharacter.PopulateFromElement(data);
                 characters.Add(tempCharacter);
             }
 
             pullData = xmlElement.Element("Accounts").Descendants("Account").ToArray();
-            Account tempAccount = new Account();
+
             foreach(XElement data in pullData)
             {
+                Account tempAccount = new Account();
                 tempAccount.PopulateFromElement(data);
                 accounts.Add(tempAccount);
             }

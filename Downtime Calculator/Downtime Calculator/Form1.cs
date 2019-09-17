@@ -20,7 +20,7 @@ namespace Downtime_Calculator
     {
         private string fileName;
         private DisplayData disDaemon;
-        private Campaign currentGame;
+        private CampaignManager currentGame;
 
         private Boolean needToSave;
 
@@ -56,6 +56,8 @@ namespace Downtime_Calculator
             accType_temp[19] = "Stable";
             accType_temp[20] = "Tavern";
             accType_temp[21] = "Resurection Funds";
+
+            this.FormClosing += new FormClosingEventHandler(Form1_FormClosing);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -181,7 +183,7 @@ namespace Downtime_Calculator
             
             StreamReader ghostReader = new StreamReader(cpgnData.Open());
             File.WriteAllText(tempFile, ghostReader.ReadToEnd());
-            currentGame = Campaign.LoadFromLocation(tempFile);
+            currentGame = CampaignManager.LoadFromLocation(tempFile);
 
 
             //Cleanup
@@ -315,6 +317,12 @@ namespace Downtime_Calculator
         #endregion
 
         #region EventListeners
+
+        private void Form1_FormClosing(object sender, CancelEventArgs e)
+        {
+            CheckIfNeedToSave();
+        }
+
         public void NewCampaignCreated(object sender, NewCampaignCreatedEventArgs e)
         {
             if (e.fileName != null)

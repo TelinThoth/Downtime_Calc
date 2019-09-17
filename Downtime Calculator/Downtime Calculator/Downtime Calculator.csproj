@@ -47,7 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Account.cs" />
-    <Compile Include="Classes\Campaign.cs" />
+    <Compile Include="Classes\CampaignManager.cs" />
     <Compile Include="Classes\Character.cs" />
     <Compile Include="Classes\DisplayData.cs" />
     <Compile Include="Events\CustomEventsArgs.cs" />

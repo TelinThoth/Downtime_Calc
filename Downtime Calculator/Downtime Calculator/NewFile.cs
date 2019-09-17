@@ -91,7 +91,7 @@ namespace Downtime_Calculator
 
         private void CreateBasicCampaignData()
         {
-            Campaign newFile = new Campaign(0, campaignName);
+            CampaignManager newFile = new CampaignManager(0, campaignName);
             newFile.SaveToLocation(cpgn);
         }
 
