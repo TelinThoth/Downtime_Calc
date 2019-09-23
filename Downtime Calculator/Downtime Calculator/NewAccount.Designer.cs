@@ -41,6 +41,7 @@
             this.btn_cancel = new System.Windows.Forms.Button();
             this.btn_createAccount = new System.Windows.Forms.Button();
             this.cb_reinvestAccount = new System.Windows.Forms.ComboBox();
+            this.btn_modifyAccess = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lbl_newAccountOwner
@@ -59,6 +60,7 @@
             this.cb_accountOwner.Name = "cb_accountOwner";
             this.cb_accountOwner.Size = new System.Drawing.Size(238, 21);
             this.cb_accountOwner.TabIndex = 1;
+            this.cb_accountOwner.SelectedIndexChanged += new System.EventHandler(this.Cb_accountOwner_SelectedIndexChanged);
             // 
             // lbl_accountType
             // 
@@ -161,11 +163,22 @@
             this.cb_reinvestAccount.TabIndex = 13;
             this.cb_reinvestAccount.Visible = false;
             // 
+            // btn_modifyAccess
+            // 
+            this.btn_modifyAccess.Location = new System.Drawing.Point(226, 148);
+            this.btn_modifyAccess.Name = "btn_modifyAccess";
+            this.btn_modifyAccess.Size = new System.Drawing.Size(140, 23);
+            this.btn_modifyAccess.TabIndex = 14;
+            this.btn_modifyAccess.Text = "Modify Account Access";
+            this.btn_modifyAccess.UseVisualStyleBackColor = true;
+            this.btn_modifyAccess.Click += new System.EventHandler(this.Btn_modifyAccess_Click);
+            // 
             // NewAccount
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(379, 259);
+            this.Controls.Add(this.btn_modifyAccess);
             this.Controls.Add(this.cb_reinvestAccount);
             this.Controls.Add(this.btn_createAccount);
             this.Controls.Add(this.btn_cancel);
@@ -201,5 +214,6 @@
         private System.Windows.Forms.Button btn_cancel;
         private System.Windows.Forms.Button btn_createAccount;
         private System.Windows.Forms.ComboBox cb_reinvestAccount;
+        private System.Windows.Forms.Button btn_modifyAccess;
     }
 }

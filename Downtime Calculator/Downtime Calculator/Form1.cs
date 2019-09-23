@@ -22,6 +22,8 @@ namespace Downtime_Calculator
         private DisplayData disDaemon;
         private CampaignManager currentGame;
 
+        private Account currentAccount;
+
         private Boolean needToSave;
 
         //Temp Data Holder:
@@ -62,7 +64,7 @@ namespace Downtime_Calculator
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         #region Button Functions
@@ -105,7 +107,7 @@ namespace Downtime_Calculator
             form.Show();
         }
 
-        private void Btn_AddFunds_Click(object sender, EventArgs e)
+        private void Btn_manageAccount_Click(object sender, EventArgs e)
         {
 
         }
@@ -132,7 +134,7 @@ namespace Downtime_Calculator
         {
             lstBx_Characters.Items.Clear();
             lstBx_Accounts.Items.Clear();
-            tb_Investment.Text = "";
+            ClearSelectedAccount();
 
             if (lstBx_Players.SelectedIndex >= 0)
             {
@@ -150,7 +152,7 @@ namespace Downtime_Calculator
         private void CharacterSelected()
         {
             lstBx_Accounts.Items.Clear();
-            tb_Investment.Text = "";
+            ClearSelectedAccount();
 
             if (lstBx_Characters.SelectedIndex >= 0)
             {
@@ -167,11 +169,60 @@ namespace Downtime_Calculator
 
         private void AccountSelected()
         {
-            tb_Investment.Text = "";
+            ClearSelectedAccount();
 
-            int acctID = disDaemon.displayAcounts[lstBx_Accounts.SelectedIndex].ID;
-            tb_Investment.Text = currentGame.accounts.Find(x => x.ID == acctID).investment.ToString("N2");
+            if (lstBx_Accounts.SelectedIndex >= 0)
+            {
+                currentAccount = disDaemon.displayAcounts[lstBx_Accounts.SelectedIndex];
+
+                tb_Investment.Text = currentAccount.investment.ToString("N2");
+                tb_accID.Text = currentAccount.ID.ToString();
+                tb_accOwner.Text = currentGame.characters.Find(x => x.ID == currentAccount.owner).name;
+                tb_accType.Text = accType_temp[currentAccount.accountType];
+                if (currentAccount.returnAccount >= 0)
+                {
+                    chb_reinvest.Checked = true;
+                    chb_reinvest.Text = "Reinvest: " + currentGame.accounts.Find(x => x.ID == currentAccount.returnAccount).GetAccountName();
+                }
+                else
+                {
+                    chb_reinvest.Checked = false;
+                    chb_reinvest.Text = "Reinvest: ";
+                }
+
+                Character[] charWithAcc = currentGame.characters.FindAll(x => x.accountAccess.Contains(currentAccount.ID) && x.ID != currentAccount.owner).ToArray();
+                foreach (Character chara in charWithAcc)
+                {
+                    lstbx_accAcs.Items.Add(chara.name);
+                }
+
+                btn_manageAccount.Enabled = true;
+            }
         }
+
+        #region Clear Areas
+        private void ClearSelectedAccount()
+        {
+            tb_Investment.Text = "";
+            tb_accID.Text = "";
+            tb_accOwner.Text = "";
+            tb_accType.Text = "";
+
+            chb_reinvest.Checked = false;
+            chb_reinvest.Text = "Reinvest: ";
+            
+            lstbx_accAcs.Items.Clear();
+
+            btn_manageAccount.Enabled = false;
+        }
+
+        private void ClearAllScreen()
+        {
+            lstBx_Characters.Items.Clear();
+            lstBx_Accounts.Items.Clear();
+            ClearSelectedAccount();
+        }
+        #endregion
 
         public void ReadFile(string path)
         {
@@ -245,7 +296,7 @@ namespace Downtime_Calculator
             {
                 btn_newPlayer.Enabled = true;
                 btn_removePlayer.Enabled = false;
-                btn_AddFunds.Enabled = false;
+                btn_manageAccount.Enabled = false;
                 btn_addAccount.Enabled = false;
                 btn_AddCharacter.Enabled = false;
                 btn_deleteCharacter.Enabled = false;
@@ -256,7 +307,7 @@ namespace Downtime_Calculator
             {
                 btn_newPlayer.Enabled = false;
                 btn_removePlayer.Enabled = false;
-                btn_AddFunds.Enabled = false;
+                btn_manageAccount.Enabled = false;
                 btn_addAccount.Enabled = false;
                 btn_AddCharacter.Enabled = false;
                 btn_deleteCharacter.Enabled = false;
@@ -306,12 +357,12 @@ namespace Downtime_Calculator
             if(isAccountSelected)
             {
                 btn_removeAccess.Enabled = true;
-                btn_AddFunds.Enabled = true;
+                btn_manageAccount.Enabled = true;
             }
             else
             {
                 btn_removeAccess.Enabled = false;
-                btn_AddFunds.Enabled = false;
+                btn_manageAccount.Enabled = false;
             }
         }
         #endregion
@@ -374,6 +425,11 @@ namespace Downtime_Calculator
             Account tempAccount = new Account(acctID, e.type, e.investment, e.nick, e.owner, returnID);
             currentGame.accounts.Add(tempAccount);
             currentGame.characters.Find(x => x.ID == e.owner).AddAccountAccess(tempAccount);
+
+            foreach(int ID in e.accessGranted)
+            {
+                currentGame.characters.Find(x => x.ID == ID).AddAccountAccess(tempAccount);
+            }
 
             currentGame.accounts.Sort();
             CharacterSelected();

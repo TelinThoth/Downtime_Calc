@@ -51,6 +51,18 @@
     <Compile Include="Classes\Character.cs" />
     <Compile Include="Classes\DisplayData.cs" />
     <Compile Include="Events\CustomEventsArgs.cs" />
+    <Compile Include="ModifyAccount.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModifyAccount.Designer.cs">
+      <DependentUpon>ModifyAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModifyNewAccountAccess.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModifyNewAccountAccess.Designer.cs">
+      <DependentUpon>ModifyNewAccountAccess.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewAccount.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +100,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ModifyAccount.resx">
+      <DependentUpon>ModifyAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModifyNewAccountAccess.resx">
+      <DependentUpon>ModifyNewAccountAccess.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NewAccount.resx">
       <DependentUpon>NewAccount.cs</DependentUpon>
     </EmbeddedResource>

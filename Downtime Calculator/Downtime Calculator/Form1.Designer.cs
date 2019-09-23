@@ -40,13 +40,23 @@
             this.lstBx_Accounts = new System.Windows.Forms.ListBox();
             this.tb_Investment = new System.Windows.Forms.TextBox();
             this.lbl_Investment = new System.Windows.Forms.Label();
-            this.btn_AddFunds = new System.Windows.Forms.Button();
+            this.btn_manageAccount = new System.Windows.Forms.Button();
             this.btn_removePlayer = new System.Windows.Forms.Button();
             this.btn_newPlayer = new System.Windows.Forms.Button();
             this.btn_AddCharacter = new System.Windows.Forms.Button();
             this.btn_deleteCharacter = new System.Windows.Forms.Button();
             this.btn_removeAccess = new System.Windows.Forms.Button();
             this.btn_addAccount = new System.Windows.Forms.Button();
+            this.lbl_accID = new System.Windows.Forms.Label();
+            this.tb_accID = new System.Windows.Forms.TextBox();
+            this.tb_accType = new System.Windows.Forms.TextBox();
+            this.lbl_accType = new System.Windows.Forms.Label();
+            this.tb_accOwner = new System.Windows.Forms.TextBox();
+            this.lbl_accOwner = new System.Windows.Forms.Label();
+            this.chb_reinvest = new System.Windows.Forms.CheckBox();
+            this.lbl_accAcs = new System.Windows.Forms.Label();
+            this.lstbx_accAcs = new System.Windows.Forms.ListBox();
+            this.btn_calcReturn = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -154,15 +164,15 @@
             this.lbl_Investment.TabIndex = 5;
             this.lbl_Investment.Text = "Account Balance";
             // 
-            // btn_AddFunds
+            // btn_manageAccount
             // 
-            this.btn_AddFunds.Location = new System.Drawing.Point(414, 72);
-            this.btn_AddFunds.Name = "btn_AddFunds";
-            this.btn_AddFunds.Size = new System.Drawing.Size(75, 23);
-            this.btn_AddFunds.TabIndex = 6;
-            this.btn_AddFunds.Text = "Add Funds";
-            this.btn_AddFunds.UseVisualStyleBackColor = true;
-            this.btn_AddFunds.Click += new System.EventHandler(this.Btn_AddFunds_Click);
+            this.btn_manageAccount.Location = new System.Drawing.Point(414, 72);
+            this.btn_manageAccount.Name = "btn_manageAccount";
+            this.btn_manageAccount.Size = new System.Drawing.Size(155, 23);
+            this.btn_manageAccount.TabIndex = 6;
+            this.btn_manageAccount.Text = "Manage Account";
+            this.btn_manageAccount.UseVisualStyleBackColor = true;
+            this.btn_manageAccount.Click += new System.EventHandler(this.Btn_manageAccount_Click);
             // 
             // btn_removePlayer
             // 
@@ -217,22 +227,126 @@
             this.btn_addAccount.Name = "btn_addAccount";
             this.btn_addAccount.Size = new System.Drawing.Size(131, 23);
             this.btn_addAccount.TabIndex = 11;
-            this.btn_addAccount.Text = "Attach Account";
+            this.btn_addAccount.Text = "Open New Account";
             this.btn_addAccount.UseVisualStyleBackColor = true;
             this.btn_addAccount.Click += new System.EventHandler(this.Btn_addAccount_Click);
+            // 
+            // lbl_accID
+            // 
+            this.lbl_accID.AutoSize = true;
+            this.lbl_accID.Location = new System.Drawing.Point(415, 98);
+            this.lbl_accID.Name = "lbl_accID";
+            this.lbl_accID.Size = new System.Drawing.Size(64, 13);
+            this.lbl_accID.TabIndex = 13;
+            this.lbl_accID.Text = "Account ID:";
+            // 
+            // tb_accID
+            // 
+            this.tb_accID.Location = new System.Drawing.Point(414, 115);
+            this.tb_accID.Name = "tb_accID";
+            this.tb_accID.ReadOnly = true;
+            this.tb_accID.Size = new System.Drawing.Size(155, 20);
+            this.tb_accID.TabIndex = 14;
+            this.tb_accID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tb_accType
+            // 
+            this.tb_accType.Location = new System.Drawing.Point(414, 155);
+            this.tb_accType.Name = "tb_accType";
+            this.tb_accType.ReadOnly = true;
+            this.tb_accType.Size = new System.Drawing.Size(155, 20);
+            this.tb_accType.TabIndex = 16;
+            this.tb_accType.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // lbl_accType
+            // 
+            this.lbl_accType.AutoSize = true;
+            this.lbl_accType.Location = new System.Drawing.Point(415, 138);
+            this.lbl_accType.Name = "lbl_accType";
+            this.lbl_accType.Size = new System.Drawing.Size(77, 13);
+            this.lbl_accType.TabIndex = 15;
+            this.lbl_accType.Text = "Account Type:";
+            // 
+            // tb_accOwner
+            // 
+            this.tb_accOwner.Location = new System.Drawing.Point(414, 195);
+            this.tb_accOwner.Name = "tb_accOwner";
+            this.tb_accOwner.ReadOnly = true;
+            this.tb_accOwner.Size = new System.Drawing.Size(155, 20);
+            this.tb_accOwner.TabIndex = 18;
+            this.tb_accOwner.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // lbl_accOwner
+            // 
+            this.lbl_accOwner.AutoSize = true;
+            this.lbl_accOwner.Location = new System.Drawing.Point(415, 178);
+            this.lbl_accOwner.Name = "lbl_accOwner";
+            this.lbl_accOwner.Size = new System.Drawing.Size(84, 13);
+            this.lbl_accOwner.TabIndex = 17;
+            this.lbl_accOwner.Text = "Account Owner:";
+            // 
+            // chb_reinvest
+            // 
+            this.chb_reinvest.AutoCheck = false;
+            this.chb_reinvest.AutoSize = true;
+            this.chb_reinvest.Location = new System.Drawing.Point(418, 222);
+            this.chb_reinvest.Name = "chb_reinvest";
+            this.chb_reinvest.Size = new System.Drawing.Size(71, 17);
+            this.chb_reinvest.TabIndex = 19;
+            this.chb_reinvest.Text = "Reinvest:";
+            this.chb_reinvest.UseVisualStyleBackColor = true;
+            // 
+            // lbl_accAcs
+            // 
+            this.lbl_accAcs.AutoSize = true;
+            this.lbl_accAcs.Location = new System.Drawing.Point(415, 273);
+            this.lbl_accAcs.Name = "lbl_accAcs";
+            this.lbl_accAcs.Size = new System.Drawing.Size(88, 13);
+            this.lbl_accAcs.TabIndex = 20;
+            this.lbl_accAcs.Text = "Account Access:";
+            // 
+            // lstbx_accAcs
+            // 
+            this.lstbx_accAcs.FormattingEnabled = true;
+            this.lstbx_accAcs.Location = new System.Drawing.Point(414, 289);
+            this.lstbx_accAcs.Name = "lstbx_accAcs";
+            this.lstbx_accAcs.Size = new System.Drawing.Size(155, 173);
+            this.lstbx_accAcs.TabIndex = 21;
+            // 
+            // btn_calcReturn
+            // 
+            this.btn_calcReturn.BackColor = System.Drawing.Color.ForestGreen;
+            this.btn_calcReturn.Font = new System.Drawing.Font("AR BLANCA", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_calcReturn.ForeColor = System.Drawing.Color.Black;
+            this.btn_calcReturn.Location = new System.Drawing.Point(413, 469);
+            this.btn_calcReturn.Name = "btn_calcReturn";
+            this.btn_calcReturn.Size = new System.Drawing.Size(156, 48);
+            this.btn_calcReturn.TabIndex = 22;
+            this.btn_calcReturn.Text = "Calculate ALL Returns";
+            this.btn_calcReturn.UseVisualStyleBackColor = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(581, 524);
+            this.Controls.Add(this.btn_calcReturn);
+            this.Controls.Add(this.lstbx_accAcs);
+            this.Controls.Add(this.lbl_accAcs);
+            this.Controls.Add(this.chb_reinvest);
+            this.Controls.Add(this.tb_accOwner);
+            this.Controls.Add(this.lbl_accOwner);
+            this.Controls.Add(this.tb_accType);
+            this.Controls.Add(this.lbl_accType);
+            this.Controls.Add(this.tb_accID);
+            this.Controls.Add(this.lbl_accID);
             this.Controls.Add(this.btn_removeAccess);
             this.Controls.Add(this.btn_addAccount);
             this.Controls.Add(this.btn_deleteCharacter);
             this.Controls.Add(this.btn_AddCharacter);
             this.Controls.Add(this.btn_newPlayer);
             this.Controls.Add(this.btn_removePlayer);
-            this.Controls.Add(this.btn_AddFunds);
+            this.Controls.Add(this.btn_manageAccount);
             this.Controls.Add(this.lbl_Investment);
             this.Controls.Add(this.tb_Investment);
             this.Controls.Add(this.lstBx_Accounts);
@@ -262,13 +376,23 @@
         private System.Windows.Forms.ListBox lstBx_Accounts;
         private System.Windows.Forms.TextBox tb_Investment;
         private System.Windows.Forms.Label lbl_Investment;
-        private System.Windows.Forms.Button btn_AddFunds;
+        private System.Windows.Forms.Button btn_manageAccount;
         private System.Windows.Forms.Button btn_removePlayer;
         private System.Windows.Forms.Button btn_newPlayer;
         private System.Windows.Forms.Button btn_AddCharacter;
         private System.Windows.Forms.Button btn_deleteCharacter;
         private System.Windows.Forms.Button btn_removeAccess;
         private System.Windows.Forms.Button btn_addAccount;
+        private System.Windows.Forms.Label lbl_accID;
+        private System.Windows.Forms.TextBox tb_accID;
+        private System.Windows.Forms.TextBox tb_accType;
+        private System.Windows.Forms.Label lbl_accType;
+        private System.Windows.Forms.TextBox tb_accOwner;
+        private System.Windows.Forms.Label lbl_accOwner;
+        private System.Windows.Forms.CheckBox chb_reinvest;
+        private System.Windows.Forms.Label lbl_accAcs;
+        private System.Windows.Forms.ListBox lstbx_accAcs;
+        private System.Windows.Forms.Button btn_calcReturn;
     }
 }
 

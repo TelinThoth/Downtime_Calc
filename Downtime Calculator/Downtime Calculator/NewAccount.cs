@@ -17,8 +17,8 @@ namespace Downtime_Calculator
         NewAccountCreatedArgs args;
 
         Character[] allCharas;
-        Account[] allAccount;
-        string[] accountTypes;
+        int ownerID;
+        int[] accessGranted;
 
         Boolean reinvest;
         public NewAccount(List<Character> allCharacters, int selectedID, List<Account> allAccounts, string[] i_accountTypes)
@@ -30,13 +30,12 @@ namespace Downtime_Calculator
             foreach (Character chara in allCharacters)
                 cb_accountOwner.Items.Add(chara.name);
             cb_accountOwner.SelectedIndex = selectedID;
+            ownerID = allCharas[selectedID].ID;
 
-            allAccount = allAccounts.ToArray();
             cb_reinvestAccount.Items.Add("This Account");
             foreach (Account acc in allAccounts)
                 cb_reinvestAccount.Items.Add(acc.GetAccountName());
 
-            accountTypes = i_accountTypes;
             cb_accountType.Items.AddRange(i_accountTypes);
         }
 
@@ -99,8 +98,18 @@ namespace Downtime_Calculator
             else
                 args.returnAcc = -2;
 
+            args.accessGranted = accessGranted;
+
             OnNewAccountCreated(args);
             this.Close();
+        }
+
+        private void Btn_modifyAccess_Click(object sender, EventArgs e)
+        {
+            ModifyNewAccountAccess form = new ModifyNewAccountAccess(allCharas, ownerID);
+            form.AccountAccessModified += AccountAccessModified;
+
+            form.Show();
         }
 
         public event EventHandler<NewAccountCreatedArgs> NewAccountCreated;
@@ -109,6 +118,16 @@ namespace Downtime_Calculator
         {
             EventHandler<NewAccountCreatedArgs> handler = NewAccountCreated;
             handler?.Invoke(this, e);
+        }
+
+        public void AccountAccessModified(object sender, ModifyAccountAccessArgs e)
+        {
+            accessGranted = e.charIDs;
+        }
+
+        private void Cb_accountOwner_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ownerID = allCharas[cb_accountOwner.SelectedIndex].ID;
         }
     }
 }

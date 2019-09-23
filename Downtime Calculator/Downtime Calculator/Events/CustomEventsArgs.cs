@@ -32,5 +32,11 @@ namespace Downtime_Calculator.Events
         public string nick { get; set; }
         public int owner { get; set; }
         public int returnAcc { get; set; }
+        public int[] accessGranted { get; set; }
+    }
+
+    public class ModifyAccountAccessArgs : EventArgs
+    {
+        public int[] charIDs { get; set; }
     }
 }
